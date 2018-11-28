@@ -34,7 +34,7 @@ export const Description = styled(P)`
 
 export const HeadSection = styled.section`
   max-width: 500px;
-  padding-top: 2rem;
+  padding-top: 3rem;
 `;
 
 const SectionWrapper = styled.div`

@@ -12,7 +12,7 @@ export const A = styled(Link)`
 export const H1 = styled.h1`
   font-weight: 700;
   font-size: 2rem;
-  margin-top: 1rem;
+  margin-top: 0;
   margin-bottom: 1rem;
 `;
 
