@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "name": "Frontend",
+  "alias": ["frontend"],
+  "regions": ["bru1"],
+  "builds": [
+    { "src": "package.json", "use": "@now/static-build" }
+  ],
+  "routes": [
+    {"src": "^/static/(.*)", "dest": "/static/$1"},
+    {"src": ".*", "dest": "/index.html"}
+  ]
+}
