@@ -46,7 +46,7 @@ const IdentifySandbox = ({ interactions }) => {
     <SandboxContainer>
       <MainContainer interactions={interactions} label="Main container <body>">
         <HeadSection interactions={interactions} label="Head section <section>">
-          <H1>Happier Design Integration</H1>
+          <H1 interactions={interactions}>Happier Design Integration</H1>
           <P>
             Frontend development can be a pain when it comes to translating a
             mockup into code. Learn a few tips to make it smoother.

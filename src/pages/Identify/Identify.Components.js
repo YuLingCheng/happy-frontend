@@ -1,5 +1,32 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { InlineContainer } from "./Identify.Layout";
+
+const HighlightableBlock = styled.p`
+  ${props =>
+    props.interactions.displayComponents &&
+    css`
+      background-color: ${props.theme.colors
+        .bottleGreen_transparent} !important;
+      outline: 1px solid ${props.theme.colors.bottleGreen};
+      position: relative;
+
+      ${props.interactions.displayComponentLabels &&
+        css`
+          ::after {
+            content: "${props.label}";
+            position: absolute;
+            top: -12px;
+            right: 5px;
+            background-color: ${props.theme.colors.bottleGreen};
+            border-radius: 3px;
+            color: ${props.theme.colors.lightest};
+            padding: 1px 3px;
+            font-size: 0.45rem;
+            font-weight: bold;
+          }
+      `}
+    `}
+`;
 
 export const A = styled.span`
   text-decoration: none;

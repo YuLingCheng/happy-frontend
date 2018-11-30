@@ -35,7 +35,9 @@ const theme = {
     grey_light: "#A6B0B5",
     grey_shadow: "rgba(102, 102, 102, 0.3)",
     blue: "rgba(30, 55, 153, 1.0)",
-    blue_transparent: "rgba(30, 55, 153, 0.3)"
+    blue_transparent: "rgba(30, 55, 153, 0.3)",
+    bottleGreen: "rgba(56, 173, 169,1.0)",
+    bottleGreen_transparent: "rgba(56, 173, 169, 0.3)"
   }
 };
 
