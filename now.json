@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "name": "Frontend",
-  "alias": ["frontend"],
+  "name": "Happy Frontend",
+  "alias": ["happyfrontend"],
   "regions": ["bru1"],
   "builds": [
     { "src": "package.json", "use": "@now/static-build" }
