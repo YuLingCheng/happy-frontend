@@ -3,8 +3,9 @@ import { IconContext } from "react-icons";
 import styled, { withTheme, css } from "styled-components";
 
 import BackgroundBase from "../../assets/decorations/BackgroundBase";
+import { ColumnHeader } from "./Identify.Components";
 
-const footerHeight = "120px";
+const footerHeight = "140px";
 
 export const IdentifyContainer = styled.div`
   display: flex;
@@ -30,13 +31,13 @@ const HighlightableBlock = styled.div`
           ::after {
             content: "${props.label}";
             position: absolute;
-            top: -12px;
-            right: 5px;
+            ${props.top ? 'top' : 'bottom'}: 0;
+            ${props.left ? 'left' : 'right'}: 0;
             background-color: ${props.theme.colors.blue};
             border-radius: 3px;
             color: ${props.theme.colors.lightest};
             padding: 1px 3px;
-            font-size: 0.45rem;
+            font-size: 0.5rem;
             font-weight: bold;
           }
       `}
@@ -46,22 +47,21 @@ const HighlightableBlock = styled.div`
 const HighlightableSection = HighlightableBlock.withComponent("section");
 
 export const MainContainer = styled(HighlightableBlock)`
-  padding: 2rem 0;
+  padding: 1.5rem 0;
   width: 100%;
   height: calc(100% - ${footerHeight});
   box-sizing: border-box;
   color: rgba(43, 27, 11, 1);
-  font-size: 0.5rem;
+  font-size: 0.65rem;
 `;
 
 export const HeadSection = styled(HighlightableSection)`
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   padding: 0 2rem;
 `;
 
 export const ContactSection = styled(HighlightableSection)`
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 1.25rem;
   color: ${props => props.theme.colors.lightest};
   padding: 0 2rem;
 `;
@@ -73,7 +73,7 @@ export const FooterBackground = styled.div`
   position: absolute;
   left: 0;
   bottom: 0;
-  width: 384px;
+  width: 100%;
   height: ${footerHeight};
   z-index: -10;
 `;
@@ -81,10 +81,10 @@ export const DisclaimerSection = styled(HighlightableFooter)`
   position: absolute;
   left: 0;
   bottom: 0;
-  width: 384px;
+  width: 100%;
   height: ${footerHeight};
   box-sizing: border-box;
-  padding: 1rem 2rem;
+  padding: 1.25rem 2rem;
   background-color: ${props => props.theme.colors.lightest_transparent};
   color: ${props => props.theme.colors.grey_dark};
   font-size: 0.5rem;
@@ -107,7 +107,7 @@ const SectionWrapper = styled(HighlightableBlock)`
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
-  padding: 0.25rem;
+  padding: 0.5rem;
   box-sizing: border-box;
 `;
 SectionWrapper.Background = styled.div`
@@ -120,7 +120,7 @@ SectionWrapper.Background = styled.div`
 const getIconContext = ({ colors }) => ({
   style: {
     verticalAlign: "middle",
-    marginLeft: "0.5rem",
+    margin: "0",
     flexShrink: 0
   },
   size: "0.75rem",
@@ -139,9 +139,13 @@ export const Section = withTheme(({ children, icon, theme, ...otherProps }) => (
 Section.displayName = "Section";
 
 export const Column = styled(HighlightableBlock)`
-  margin-top: 0.5rem;
   flex: 1;
   width: 100%;
-  padding: 0 2rem 1.5rem 0;
+  padding: 0 1.5rem 0 0;
   box-sizing: border-box;
+  z-index: 10;
+
+  ${ColumnHeader} {
+    margin-bottom: 0.5rem;
+  }
 `;

@@ -8,10 +8,10 @@ const MainContainer = styled.section`
   padding: 0 2rem 1rem;
   color: rgba(43, 27, 11, 1);
   box-sizing: border-box;
-  width: calc(100% - 384px);
+  width: calc(100% - ${props => props.sandboxWidth});
 `;
 
-const IdentifyDescription = ({ interactions, setInteractions }) => {
+const IdentifyDescription = ({ interactions, setInteractions, sandboxWidth }) => {
   const {
     displayBlocks,
     displayBlockLabels,
@@ -33,7 +33,7 @@ const IdentifyDescription = ({ interactions, setInteractions }) => {
       displayComponentLabels: !displayComponentLabels
     });
   return (
-    <MainContainer>
+    <MainContainer sandboxWidth={sandboxWidth}>
       <H1>Identify Layouts and Components on a Mockup</H1>
       <P>
         Make sure that you have all the information about the design: size,
