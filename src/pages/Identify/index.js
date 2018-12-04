@@ -31,7 +31,7 @@ const Identify = () => {
           <IdentifySandbox sandboxWidth={sandboxWidth} interactions={interactions} />
         </IdentifyContainer>
       </Main>
-      <BackgroundBase>
+      <BackgroundBase opacity="0.5">
         <Pencil.Shadow rotate="25" left="145px" top="0">
           <Pencil />
         </Pencil.Shadow>

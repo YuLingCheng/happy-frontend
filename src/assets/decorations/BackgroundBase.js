@@ -5,6 +5,7 @@ const BackgroundBase = styled.div`
   top: 0;
   left: 0;
   z-index: -10;
+  opacity: ${props => props.opacity || '1'};
 `
 
 export default BackgroundBase;

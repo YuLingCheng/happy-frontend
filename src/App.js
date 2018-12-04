@@ -38,6 +38,7 @@ const theme = {
     blue_transparent: "rgba(74, 105, 189, 0.3)",
     bottleGreen: "rgba(56, 173, 169,1.0)",
     bottleGreen_transparent: "rgba(56, 173, 169, 0.3)",
+    green: "#78e08f",
   }
 };
 
