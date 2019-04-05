@@ -9,7 +9,7 @@ export const MainContainer = styled.div`
 
 export const PreviewContainer = styled.div`
   flex: 1;
-  background-image: url(${layoutModel});
+  background-image: url(${props => props.mockupPreview || layoutModel});
   background-size: contain;
   background-repeat: no-repeat;
   background-color: black;

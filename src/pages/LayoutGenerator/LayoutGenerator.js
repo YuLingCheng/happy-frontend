@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDropzone } from 'react-dropzone';
 import styled from 'styled-components';
 import { Card, Col, Collapse, Divider, Input, InputNumber, Tabs, Radio, Row } from 'antd';
 import { MainContainer, Ol, PreviewContainer, ToolContainer } from './components';
@@ -49,9 +50,30 @@ const LayoutGenerator = () => {
   const setChildrenMarginValue = ({target}) => setChildrenMargin(target.value)
   const marginInfo = { isRowDirection, childrenMargin }
 
+  const [mockupPreview, setMockupPreview] = useState(null);
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: 'image/*',
+    onDrop: acceptedFiles => setMockupPreview(URL.createObjectURL(acceptedFiles[0]))
+  });
+  useEffect(() => () => {
+    // Make sure to revoke the data uris to avoid memory leaks
+    URL.revokeObjectURL(mockupPreview);
+  }, [mockupPreview]);
+
+  const renderPageHeader = () => (
+    <div style={{display: 'flex', justifyContent: 'space-between'}}>
+    <span>Layout Toolbox</span>
+    <div {...getRootProps({className: 'dropzone'})}>
+      <input {...getInputProps()} />
+      <Button type="primary" icon="upload" ghost size="small">Load Mockup</Button>&nbsp;
+      <Button type="primary" size="small" onClick={exportCode}>Export Code</Button>
+    </div>
+    </div>
+  )
+
   return (
   <MainContainer>
-    <PreviewContainer>
+    <PreviewContainer mockupPreview={mockupPreview}>
       <RootContainer style={rootContainerProps} marginInfo={marginInfo}>
         {childrenList.map(id => (
           <Child key={id} style={{...childrenProps, ...childrenPropsMap[id], filter: getChildColor(id)}}>Child {id}</Child>)
@@ -59,7 +81,7 @@ const LayoutGenerator = () => {
       </RootContainer>
     </PreviewContainer>
     <ToolContainer>
-      <Card title="Layout Toolbox">
+      <Card title={renderPageHeader()}>
         <Tabs size="small" type="card">
           <Tabs.TabPane tab={<span>Root container <ElementIcon color={rootContainerBg} /></span>} key={1}>
             <Card type="inner" title="1. Define the root container size" style={{backgroundColor: rootContainerBg}}>
