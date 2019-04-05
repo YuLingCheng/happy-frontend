@@ -8,6 +8,8 @@ import EdgeCases from "./pages/EdgeCases";
 import Assets from "./pages/Assets";
 import Responsive from "./pages/Responsive";
 
+import "antd/dist/antd.css";
+
 const AppRouter = () => (
   <Router>
     <Fragment>
