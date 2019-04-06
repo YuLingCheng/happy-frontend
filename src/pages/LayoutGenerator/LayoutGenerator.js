@@ -1,8 +1,15 @@
+import _isEqual from 'lodash/isEqual';
 import React, { useEffect, useState } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useDropzone } from 'react-dropzone';
+import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
+import css from 'react-syntax-highlighter/dist/esm/languages/hljs/css';
+import xcode from 'react-syntax-highlighter/dist/esm/styles/hljs/xcode';
 import styled from 'styled-components';
-import { Card, Col, Collapse, Divider, Input, InputNumber, Tabs, Radio, Row } from 'antd';
-import { MainContainer, Ol, PreviewContainer, ToolContainer } from './components';
+import { Button, Card, Col, Collapse, Divider, Drawer, Icon, Input, InputNumber, Tabs, Radio, Row } from 'antd';
+import { Helper, MainContainer, Ol, PreviewContainer, ToolContainer } from './components';
+
+SyntaxHighlighter.registerLanguage('css', css);
 
 const rootContainerBg = 'rgba(213, 183, 84, 0.3)';
 const RootContainer = styled.div`
@@ -35,10 +42,17 @@ const LayoutGenerator = () => {
   const [childrenProps, setChildrenProps] = useState({
     padding: '10px',
   })
+  const initialChildProps = {
+    flexBasis: 'auto',
+    flexGrow: 0,
+    alignSelf: 'auto',
+  };
   const [childrenNb, setChildrenNb] = useState(1)
   const childrenList = [...Array(childrenNb).keys()].map(id => id + 1)
-  const getChildColor = (id) => `hue-rotate(${id/childrenList.length*360}deg)`
-  const [childrenPropsMap, setChildPropsMap] = useState({})
+  const getChildColor = (id) => `hue-rotate(${(id-1)/childrenList.length*360}deg)`
+  const [childrenPropsMap, setChildPropsMap] = useState({
+    1: initialChildProps
+  })
   const setChildProp = (id) => (prop) => ({target}) => setChildPropsMap({
     ...childrenPropsMap,
     [id]: {
@@ -60,14 +74,43 @@ const LayoutGenerator = () => {
     URL.revokeObjectURL(mockupPreview);
   }, [mockupPreview]);
 
+  const [isDrawerOpen, setDrawerOpen] = useState(false);
+  const [codeString, setCodeString] = useState('.container { background-color: blue; }');
+  const exportCode = () => {
+    setCodeString(`.container {
+  width: ${rootContainerProps.width};
+  height: ${rootContainerProps.height};
+  box-sizing: border-box;
+  display: flex;
+  flexDirection: ${rootContainerProps.flexDirection};
+  padding: ${rootContainerProps.padding};
+  justify-content: ${rootContainerProps.justifyContent};
+  align-items: ${rootContainerProps.alignItems};
+}
+${marginInfo.childrenMargin !== '0' ? `.container :not(:last-child) {
+  margin-${isRowDirection ? 'right' : 'bottom'}: ${marginInfo.childrenMargin};
+}` : ''}
+${childrenList.map(id => {
+  const childProperties = { ...initialChildProps, ...childrenPropsMap[id] };
+  if (_isEqual(childProperties, initialChildProps)) return;
+  return `.child${id} {
+  flex-basis: ${childProperties.flexBasis};
+  flex-grow: ${childProperties.flexGrow};
+  align-self: ${childProperties.alignSelf};
+}`}).join('\n')}`);
+    setDrawerOpen(true);
+  }
+
   const renderPageHeader = () => (
-    <div style={{display: 'flex', justifyContent: 'space-between'}}>
-    <span>Layout Toolbox</span>
-    <div {...getRootProps({className: 'dropzone'})}>
-      <input {...getInputProps()} />
-      <Button type="primary" icon="upload" ghost size="small">Load Mockup</Button>&nbsp;
-      <Button type="primary" size="small" onClick={exportCode}>Export Code</Button>
-    </div>
+    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+      <span>Layout Toolbox</span>
+      <div style={{display: 'flex', alignItems: 'center'}}>
+        <div {...getRootProps({className: 'dropzone'})}>
+          <input {...getInputProps()} />
+          <Button type="primary" icon="upload" ghost size="small">Load Mockup</Button>
+        </div>&nbsp;
+        <Button type="primary" size="small" onClick={exportCode}>Export Code</Button>
+      </div>
     </div>
   )
 
@@ -79,10 +122,21 @@ const LayoutGenerator = () => {
           <Child key={id} style={{...childrenProps, ...childrenPropsMap[id], filter: getChildColor(id)}}>Child {id}</Child>)
         )}
       </RootContainer>
+      {!mockupPreview && <Helper>
+          <Helper.Content>
+            <div {...getRootProps({className: 'dropzone'})}>
+              <input {...getInputProps()} />
+                <h2>How to</h2>
+                <p>1. Drag and drop a mockup here or click to upload <Icon type="upload" /></p>
+                <p>2. Shape the container <ElementIcon color={rootContainerBg} /> and its children <ElementIcon color={childBaseColor} /> to match the layout using the Layout Toolbox</p>
+                <p>3. Export the code to use it on your project</p>
+            </div>
+          </Helper.Content>
+      </Helper>}
     </PreviewContainer>
     <ToolContainer>
       <Card title={renderPageHeader()}>
-        <Tabs size="small" type="card">
+        <Tabs type="card">
           <Tabs.TabPane tab={<span>Root container <ElementIcon color={rootContainerBg} /></span>} key={1}>
             <Card type="inner" title="1. Define the root container size" style={{backgroundColor: rootContainerBg}}>
               <Row gutter={10}>
@@ -142,13 +196,13 @@ const LayoutGenerator = () => {
                   <Collapse.Panel header={`Child ${id}`} key={id} style={{backgroundColor: childBaseColor, filter: getChildColor(id)}}>
                     <Tabs size="small">
                       <Tabs.TabPane tab="Size" key={1}>
-                        <Divider orientation="left" style={{marginTop: 0}}>Specific size:</Divider>
+                        <Divider orientation="left" style={{marginTop: 0}}>Specific size ({isRowDirection ? 'Width' : 'Height'}):</Divider>
                         <Row gutter={8}>
                           <Col span={20}>
                             <Input addonBefore="flex-basis:" size="small" defaultValue="auto" onChange={setChildProp(id)('flexBasis')}/>
                           </Col>
                         </Row>
-                        <Divider orientation="left">Take available space:</Divider>
+                        <Divider orientation="left">Take available space ({isRowDirection ? 'Width' : 'Height'}):</Divider>
                         <Row gutter={8}>
                           <Col span={22}>
                             <Input addonBefore="flex-grow:" size="small" defaultValue="0" onChange={setChildProp(id)('flexGrow')}/>
@@ -182,8 +236,22 @@ const LayoutGenerator = () => {
           </Tabs.TabPane>
         </Tabs>
       </Card>
-
     </ToolContainer>
+    <Drawer
+      title="Generated Layout Code"
+      visible={isDrawerOpen}
+      placement="right"
+      width="40%"
+      onClose={() => setDrawerOpen(false)}
+      bodyStyle={{ padding: '15px', position: 'relative'}}
+    >
+      <CopyToClipboard text={codeString} onCopy={() => setDrawerOpen(false)}>
+        <Button icon="copy" size="small" style={{position: 'absolute', right: '5px', top: '5px'}}>
+          Copy to clipboard
+        </Button>
+      </CopyToClipboard>
+      <SyntaxHighlighter language='css' style={xcode}>{codeString}</SyntaxHighlighter>
+    </Drawer>
   </MainContainer>
 )};
 

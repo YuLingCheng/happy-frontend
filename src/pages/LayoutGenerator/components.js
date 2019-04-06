@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import layoutModel from '../../assets/images/layout0.png'
+import layoutModel from '../../assets/images/mockup-placeholder.png'
 export const MainContainer = styled.div`
   width: 100%;
   height: 100vh;
@@ -12,17 +12,24 @@ export const PreviewContainer = styled.div`
   background-image: url(${props => props.mockupPreview || layoutModel});
   background-size: contain;
   background-repeat: no-repeat;
-  background-color: black;
+  background-color: lightGrey;
 `
 export const ToolContainer = styled.div`
   flex-basis: 35%;
   background: white;
   overflow: auto;
 
-  .ant-card-head, .ant-card-type-inner .ant-card-head {
+  .ant-card-head {
+    min-height: 40px;
+    padding: 0 15px;
+  }
+  .ant-card-head-title {
+    padding: 15px 0;
+  }
+  .ant-card-type-inner .ant-card-head {
     min-height: 20px;
   }
-  .ant-card-head-title, .ant-card-type-inner .ant-card-head-title {
+  .ant-card-type-inner .ant-card-head-title {
     padding: 5px;
   }
   .ant-card-type-inner .ant-card-head {
@@ -48,3 +55,22 @@ export const ToolContainer = styled.div`
 export const Ol = styled.ol`
   padding-inline-start: 15px;
 `;
+
+export const Helper = styled.div`
+  width: 100%;
+`
+
+Helper.Content = styled.div`
+  width: 50%;
+  margin: auto;
+  margin-top: 50px;
+  border: 1px dashed #145678;
+  color: #145678;
+  font-family: 'Noto Sans TC', sans-serif;
+  background-color: rgb(20, 86, 120, 0.05);
+
+  .dropzone {
+    padding: 20px;
+    outline: none;
+  }
+`
