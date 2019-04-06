@@ -7,24 +7,28 @@ import css from 'react-syntax-highlighter/dist/esm/languages/hljs/css';
 import xcode from 'react-syntax-highlighter/dist/esm/styles/hljs/xcode';
 import styled from 'styled-components';
 import { Button, Card, Col, Collapse, Divider, Drawer, Icon, Input, InputNumber, Tabs, Radio, Row } from 'antd';
-import { Helper, MainContainer, Ol, PreviewContainer, ToolContainer } from './components';
+import { ExampleHeader, ExampleFooter, Helper, MainContainer, PreviewContainer, ToolContainer } from './components';
+import Cup from '../../assets/decorations/Cup';
 
 SyntaxHighlighter.registerLanguage('css', css);
 
-const rootContainerBg = 'rgba(213, 183, 84, 0.3)';
+const rootContainerBg = 'rgba(252, 209, 67, 0.3)';
 const RootContainer = styled.div`
   background: ${rootContainerBg};
   display: flex;
   box-sizing: border-box;
+  position: relative;
+  z-index: 10;
 
   & :not(:last-child) {
     ${props => `margin-${props.marginInfo.isRowDirection ? 'right' : 'bottom'}: ${props.marginInfo.childrenMargin};`}
   }
 `;
-const childBaseColor = 'rgba(11, 139, 0, 0.54)';
+const childBaseColor = 'rgba(0, 113, 139, 0.54)';
 const Child = styled.div`
 background: ${childBaseColor};
 color: white;
+position: relative;
 `;
 const ElementIcon = ({color}) => (<span style={{color: color, fontSize: '20px'}}>&#9635;</span>)
 
@@ -39,9 +43,6 @@ const LayoutGenerator = () => {
   })
   const isRowDirection = rootContainerProps.flexDirection === 'row';
   const setRootContainerValue = (prop) => ({target}) => setRootContainerProps({...rootContainerProps, [prop]: target.value})
-  const [childrenProps, setChildrenProps] = useState({
-    padding: '10px',
-  })
   const initialChildProps = {
     flexBasis: 'auto',
     flexGrow: 0,
@@ -92,7 +93,7 @@ ${marginInfo.childrenMargin !== '0' ? `.container :not(:last-child) {
 }` : ''}
 ${childrenList.map(id => {
   const childProperties = { ...initialChildProps, ...childrenPropsMap[id] };
-  if (_isEqual(childProperties, initialChildProps)) return;
+  if (_isEqual(childProperties, initialChildProps)) return '';
   return `.child${id} {
   flex-basis: ${childProperties.flexBasis};
   flex-grow: ${childProperties.flexGrow};
@@ -119,10 +120,21 @@ ${childrenList.map(id => {
     <PreviewContainer mockupPreview={mockupPreview}>
       <RootContainer style={rootContainerProps} marginInfo={marginInfo}>
         {childrenList.map(id => (
-          <Child key={id} style={{...childrenProps, ...childrenPropsMap[id], filter: getChildColor(id)}}>Child {id}</Child>)
+          <Child key={id} style={{padding: '10px', filter: getChildColor(id), ...childrenPropsMap[id]}}>Child {id}</Child>)
         )}
       </RootContainer>
       {!mockupPreview && <Helper>
+          <ExampleHeader>
+              <div style={{display: 'flex', alignItems: 'center'}}>
+                <Cup.Icon cupSize="32" sizeUnit="px" top="-3px">
+                  <Cup.Handle cupSize="32" sizeUnit="px" />
+                </Cup.Icon>
+                Layout Generator
+              </div>
+              <div>
+                HOME ABOUT LOGIN
+              </div>
+          </ExampleHeader>
           <Helper.Content>
             <div {...getRootProps({className: 'dropzone'})}>
               <input {...getInputProps()} />
@@ -132,6 +144,9 @@ ${childrenList.map(id => {
                 <p>3. Export the code to use it on your project</p>
             </div>
           </Helper.Content>
+          <ExampleFooter>
+            Privacy policy - Terms and conditions
+          </ExampleFooter>
       </Helper>}
     </PreviewContainer>
     <ToolContainer>
