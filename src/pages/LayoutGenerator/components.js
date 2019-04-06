@@ -13,7 +13,7 @@ export const PreviewContainer = styled.div`
   background-color: lightGrey;
 `
 export const ToolContainer = styled.div`
-  flex-basis: 35%;
+  flex: 0 0 35%;
   background: white;
   overflow: auto;
 
