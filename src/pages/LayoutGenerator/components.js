@@ -29,6 +29,8 @@ export const ToolContainer = styled.div`
   }
   .ant-card-type-inner .ant-card-head-title {
     padding: 5px;
+    white-space: normal;
+    line-height: 15px;
   }
   .ant-card-type-inner .ant-card-head {
     padding: 0 10px;
@@ -47,6 +49,7 @@ export const ToolContainer = styled.div`
   }
   .ant-divider-horizontal.ant-divider-with-text-left {
     font-size: 14px;
+    margin-bottom: 10px;
   }
 `
 

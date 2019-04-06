@@ -30,7 +30,7 @@ background: ${childBaseColor};
 color: white;
 position: relative;
 `;
-const ElementIcon = ({color}) => (<span style={{color: color, fontSize: '20px'}}>&#9635;</span>)
+const ElementIcon = ({color}) => (<div style={{backgroundColor: color, width: '15px', height: '15px', top: '-5px', display: 'inline-block'}}/>)
 
 const LayoutGenerator = () => {
   const [rootContainerProps, setRootContainerProps] = useState({
@@ -40,6 +40,8 @@ const LayoutGenerator = () => {
     alignItems: 'flex-start',
     width: '100%',
     height: 'auto',
+    top: '0px',
+    left: '0px',
   })
   const isRowDirection = rootContainerProps.flexDirection === 'row';
   const setRootContainerValue = (prop) => ({target}) => setRootContainerProps({...rootContainerProps, [prop]: target.value})
@@ -76,7 +78,7 @@ const LayoutGenerator = () => {
   }, [mockupPreview]);
 
   const [isDrawerOpen, setDrawerOpen] = useState(false);
-  const [codeString, setCodeString] = useState('.container { background-color: blue; }');
+  const [codeString, setCodeString] = useState('');
   const exportCode = () => {
     setCodeString(`.container {
   width: ${rootContainerProps.width};
@@ -104,13 +106,12 @@ ${childrenList.map(id => {
 
   const renderPageHeader = () => (
     <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-      <span>Layout Toolbox</span>
+      <span><Icon type="layout" theme="filled" /> Layout Toolbox</span>
       <div style={{display: 'flex', alignItems: 'center'}}>
         <div {...getRootProps({className: 'dropzone'})}>
           <input {...getInputProps()} />
           <Button type="primary" icon="upload" ghost size="small">Load Mockup</Button>
-        </div>&nbsp;
-        <Button type="primary" size="small" onClick={exportCode}>Export Code</Button>
+        </div>
       </div>
     </div>
   )
@@ -129,10 +130,10 @@ ${childrenList.map(id => {
                 <Cup.Icon cupSize="32" sizeUnit="px" top="-3px">
                   <Cup.Handle cupSize="32" sizeUnit="px" />
                 </Cup.Icon>
-                Layout Generator
+                Happy frontend
               </div>
               <div>
-                HOME ABOUT LOGIN
+                <Icon type="home" /> Home <Icon type="question" /> About <Icon type="user" /> Login
               </div>
           </ExampleHeader>
           <Helper.Content>
@@ -140,8 +141,8 @@ ${childrenList.map(id => {
               <input {...getInputProps()} />
                 <h2>How to</h2>
                 <p>1. Drag and drop a mockup here or click to upload <Icon type="upload" /></p>
-                <p>2. Shape the container <ElementIcon color={rootContainerBg} /> and its children <ElementIcon color={childBaseColor} /> to match the layout using the Layout Toolbox</p>
-                <p>3. Export the code to use it on your project</p>
+                <p>2. Shape the container <Icon type="project" theme="filled" style={{color: rootContainerBg}} /> and its children <Icon type="build" theme="filled" style={{color: childBaseColor}} /> to match the layout using the Layout Toolbox</p>
+                <p>3. Export the code <Icon type="code" theme="filled" /> to use it on your project</p>
             </div>
           </Helper.Content>
           <ExampleFooter>
@@ -151,16 +152,24 @@ ${childrenList.map(id => {
     </PreviewContainer>
     <ToolContainer>
       <Card title={renderPageHeader()}>
-        <Tabs type="card">
-          <Tabs.TabPane tab={<span>Root container <ElementIcon color={rootContainerBg} /></span>} key={1}>
-            <Card type="inner" title="1. Define the root container size" style={{backgroundColor: rootContainerBg}}>
+        <Tabs type="card" onTabClick={key => { if (key === "2") exportCode() }} >
+          <Tabs.TabPane tab={<span>Shape</span>} key={1}>
+            <Card type="inner" title="1. Define the root container size">
               <Row gutter={10}>
-              <Col span={10}>
-                <Input addonBefore="width:" size="small" defaultValue="100%" onChange={setRootContainerValue('width')}/>
-              </Col>
-              <Col span={10}>
-                <Input addonBefore="height:" size="small" defaultValue="auto" onChange={setRootContainerValue('height')}/>
-              </Col>
+                <Col span={10}>
+                  <Input addonBefore="width:" size="small" defaultValue="100%" onChange={setRootContainerValue('width')}/>
+                </Col>
+                <Col span={10}>
+                  <Input addonBefore="height:" size="small" defaultValue="auto" onChange={setRootContainerValue('height')}/>
+                </Col>
+              </Row>
+              <Row gutter={10}>
+                <Col span={10}>
+                  <Input addonBefore="x:" size="small" defaultValue="0px" onChange={setRootContainerValue('top')}/>
+                </Col>
+                <Col span={10}>
+                  <Input addonBefore="y:" size="small" defaultValue="0px" onChange={setRootContainerValue('left')}/>
+                </Col>
               </Row>
             </Card>
             <Card type="inner" title="2. Define the number of children">
@@ -203,12 +212,10 @@ ${childrenList.map(id => {
                 <Radio.Button value="wrap-reverse">wrap-reverse</Radio.Button>
               </Radio.Group>
             </Card>
-          </Tabs.TabPane>
-          <Tabs.TabPane tab={<span>Children <ElementIcon color={childBaseColor} /></span>} key={2}>
             <Card type="inner" title="If a child has specific size in the container, define it">
               <Collapse defaultActiveKey={['1']}>
                 {childrenList.map(id => (
-                  <Collapse.Panel header={`Child ${id}`} key={id} style={{backgroundColor: childBaseColor, filter: getChildColor(id)}}>
+                  <Collapse.Panel header={<span><Icon type="build" theme="filled" style={{color: childBaseColor, filter: getChildColor(id)}} /> Child {id}</span>} key={id}>
                     <Tabs size="small">
                       <Tabs.TabPane tab="Size" key={1}>
                         <Divider orientation="left" style={{marginTop: 0}}>Specific size ({isRowDirection ? 'Width' : 'Height'}):</Divider>
@@ -249,24 +256,19 @@ ${childrenList.map(id => {
               </Row>
             </Card>
           </Tabs.TabPane>
+          <Tabs.TabPane tab={<span><Icon type="code" theme="filled" /> Code</span>} key="2">
+            <div style={{position: 'relative'}}>
+              <CopyToClipboard text={codeString} onCopy={() => alert('copied')}>
+                <Button icon="copy" size="small" style={{position: 'absolute', right: '5px', top: '5px'}}>
+                  Copy to clipboard
+                </Button>
+              </CopyToClipboard>
+              <SyntaxHighlighter language='css' style={xcode}>{codeString}</SyntaxHighlighter>
+            </div>
+          </Tabs.TabPane>
         </Tabs>
       </Card>
     </ToolContainer>
-    <Drawer
-      title="Generated Layout Code"
-      visible={isDrawerOpen}
-      placement="right"
-      width="40%"
-      onClose={() => setDrawerOpen(false)}
-      bodyStyle={{ padding: '15px', position: 'relative'}}
-    >
-      <CopyToClipboard text={codeString} onCopy={() => setDrawerOpen(false)}>
-        <Button icon="copy" size="small" style={{position: 'absolute', right: '5px', top: '5px'}}>
-          Copy to clipboard
-        </Button>
-      </CopyToClipboard>
-      <SyntaxHighlighter language='css' style={xcode}>{codeString}</SyntaxHighlighter>
-    </Drawer>
   </MainContainer>
 )};
 

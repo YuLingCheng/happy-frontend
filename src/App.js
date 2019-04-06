@@ -19,7 +19,7 @@ const AppRouter = () => (
       <Route path="/edge-cases" exact component={EdgeCases} />
       <Route path="/assets" exact component={Assets} />
       <Route path="/responsive" exact component={Responsive} />
-      <Route path="/layout-generator" exact component={LayoutGenerator} />
+      <Route path="/flexbox" exact component={LayoutGenerator} />
     </Fragment>
   </Router>
 );
