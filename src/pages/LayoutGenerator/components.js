@@ -1,6 +1,12 @@
+import React from 'react';
 import styled from 'styled-components';
+import { Button, Icon, Popover } from 'antd';
 
 const mainColor = 'rgb(24, 144, 255)';
+const darkColor = '#0c3a65';
+const reverseColor = 'white';
+export const highlightChildColor = '#faad14';
+export const highlightContainerColor = '#52c41a';
 
 export const MainContainer = styled.div`
   width: 100%;
@@ -17,7 +23,7 @@ export const PreviewContainer = styled.div`
 `
 export const ToolContainer = styled.div`
   flex: 0 0 35%;
-  background: white;
+  background: ${reverseColor};
   overflow: auto;
 
   .ant-card-head {
@@ -63,37 +69,42 @@ export const Helper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: white;
+  background-color: ${reverseColor};
+
+  ${props => props.highlight && `border: solid 3px ${highlightContainerColor};`}
 `
 
 Helper.Content = styled.div`
-  width: 40vw;
-  margin: 20px auto 30px auto;
-  border: 1px dashed ${mainColor};
-  background-color: rgb(20, 86, 120, 0.05);
-  color: ${mainColor};
+  display: flex;
+  justify-content: center;
+  padding: 20px 0 30px;
+  color: ${darkColor};
   font-family: 'Noto Sans TC', sans-serif;
-  font-size: small;
+  font-size: x-small;
 
   h2 {
-    color: ${mainColor};
+    color: ${darkColor};
     font-size: small;
     font-weight: bold;
   }
 
   .dropzone {
+    border: 1px dashed ${mainColor};
+    background-color: rgb(20, 86, 120, 0.05);
+    width: 40vw;
     padding: 20px;
     outline: none;
+    cursor: pointer;
   }
 `
 
 Helper.Intro = styled.div`
-  margin-top: 40px;
+  padding: 30px 0 15px;
   text-align: center;
-  color: ${mainColor};
+  color: ${darkColor};
 
   h1 {
-    color: ${mainColor};
+    color: ${darkColor};
     font-size: medium;
     font-weight: bold;
   }
@@ -103,15 +114,31 @@ Helper.KeyPoints = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: start;
-  color: ${mainColor};
-  padding: 10px 30px;
-  text-align: center;
+  color: ${reverseColor};
+  background-color: ${darkColor};
+  padding: 20px 30px;
+  text-align: left;
+  flex-wrap: wrap
+  font-size: x-small;
 
-  div {
+  .keypoints__header {
+    text-align: center;
+    flex: 1 0 100%;
+    margin-bottom: 10px;
+    font-size: small;
+  }
+
+  .keypoint {
     flex: 1;
+    display: flex;
+
+    &:not(:last-child) {
+      margin-right: 20px;
+    }
 
     i {
-      font-size: 30px;
+      font-size: 25px;
+      margin-right: 5px;
     }
   }
 `
@@ -123,16 +150,46 @@ export const ExampleHeader = styled.div`
   border-bottom: 2px solid ${mainColor};
   height: 45px;
   padding: 0 10px;
-  color: ${mainColor};
+  color: ${darkColor};
   font-family: 'Noto Sans TC', sans-serif;
   font-weight: bold;
+
+  ${props => props.highlight && `border: solid 3px ${highlightChildColor};`}
 `
+export const ExampleMain = styled.div`
+  ${props => props.highlight && `border: solid 3px ${highlightChildColor};`}
+`;
 
 export const ExampleFooter = styled.div`
   border-top: 1px solid ${mainColor};
   padding: 20px;
   text-align: center;
-  color: ${mainColor};
+  color: ${darkColor};
   font-family: 'Noto Sans TC', sans-serif;
   font-size: x-small;
+
+  ${props => props.highlight && `border: solid 3px ${highlightChildColor};`}
 `
+
+export const HighlightableChild = styled.div`
+  ${props => props.highlight && `border: solid 3px ${highlightChildColor};`}
+`
+export const HighlightableContainer = styled.div`
+  ${props => props.highlight && `border: solid 1px ${highlightContainerColor};`}
+`
+
+export const PageHeader = ({getRootProps, getInputProps}) => (
+  <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+    <span><Icon type="layout" theme="filled" /> Layout Toolbox</span>
+    <div style={{display: 'flex', alignItems: 'center'}}>
+      <div {...getRootProps({className: 'dropzone'})}>
+        <input {...getInputProps()} />
+        <Button type="primary" icon="upload" ghost size="small">Load Mockup</Button>
+      </div>
+    </div>
+  </div>
+);
+
+export const Tip = ({title, content}) => (
+  <Popover title={title} content={content}><Icon type="question-circle" theme="filled" /></Popover>
+);
