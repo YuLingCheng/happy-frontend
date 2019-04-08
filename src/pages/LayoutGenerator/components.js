@@ -68,18 +68,13 @@ export const Helper = styled.div`
 
 Helper.Content = styled.div`
   width: 40vw;
-  margin: 60px auto;
+  margin: 20px auto 30px auto;
   border: 1px dashed ${mainColor};
   background-color: rgb(20, 86, 120, 0.05);
   color: ${mainColor};
   font-family: 'Noto Sans TC', sans-serif;
   font-size: small;
 
-  h1 {
-    color: ${mainColor};
-    font-size: medium;
-    font-weight: bold;
-  }
   h2 {
     color: ${mainColor};
     font-size: small;
@@ -89,6 +84,35 @@ Helper.Content = styled.div`
   .dropzone {
     padding: 20px;
     outline: none;
+  }
+`
+
+Helper.Intro = styled.div`
+  margin-top: 40px;
+  text-align: center;
+  color: ${mainColor};
+
+  h1 {
+    color: ${mainColor};
+    font-size: medium;
+    font-weight: bold;
+  }
+`
+
+Helper.KeyPoints = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: start;
+  color: ${mainColor};
+  padding: 10px 30px;
+  text-align: center;
+
+  div {
+    flex: 1;
+
+    i {
+      font-size: 30px;
+    }
   }
 `
 
