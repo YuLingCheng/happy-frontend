@@ -165,6 +165,13 @@ ${childrenList.map(id => {
           <Helper.Content>
             <div {...getRootProps({className: 'dropzone'})}>
               <input {...getInputProps()} />
+                <div style={{display: 'flex', justifyContent: 'center', marginBottom: '10px'}}>
+                  <Cup.Icon cupSize="50" sizeUnit="px" top="-3px">
+                    <Cup.Handle cupSize="50" sizeUnit="px" />
+                  </Cup.Icon>
+                </div>
+                <h1>Happier frontend development</h1>
+                <p>Learn how to integrate your mockup's layout by using this tool.</p>
                 <h2>How to</h2>
                 <p>1. Drag and drop a mockup here or click to upload <Icon type="upload" /></p>
                 <p>2. Shape the container <Icon type="project" theme="filled" style={{color: rootContainerBg}} /> and its children <Icon type="build" theme="filled" style={{color: childBaseColor}} /> to match the layout using the Layout Toolbox</p>

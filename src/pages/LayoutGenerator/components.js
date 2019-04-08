@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+
+const mainColor = 'rgb(24, 144, 255)';
+
 export const MainContainer = styled.div`
   width: 100%;
   height: 100vh;
@@ -66,15 +69,21 @@ export const Helper = styled.div`
 Helper.Content = styled.div`
   width: 40vw;
   margin: 60px auto;
-  border: 1px dashed #145678;
+  border: 1px dashed ${mainColor};
   background-color: rgb(20, 86, 120, 0.05);
-  color: #145678;
+  color: ${mainColor};
   font-family: 'Noto Sans TC', sans-serif;
   font-size: small;
 
-  h2 {
-    color: #145678;
+  h1 {
+    color: ${mainColor};
     font-size: medium;
+    font-weight: bold;
+  }
+  h2 {
+    color: ${mainColor};
+    font-size: small;
+    font-weight: bold;
   }
 
   .dropzone {
@@ -87,19 +96,19 @@ export const ExampleHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid #145678;
+  border-bottom: 2px solid ${mainColor};
   height: 45px;
   padding: 0 10px;
-  color: #145678;
+  color: ${mainColor};
   font-family: 'Noto Sans TC', sans-serif;
   font-weight: bold;
 `
 
 export const ExampleFooter = styled.div`
-  border-top: 1px solid #145678;
+  border-top: 1px solid ${mainColor};
   padding: 20px;
   text-align: center;
-  color: #145678;
+  color: ${mainColor};
   font-family: 'Noto Sans TC', sans-serif;
   font-size: x-small;
 `
