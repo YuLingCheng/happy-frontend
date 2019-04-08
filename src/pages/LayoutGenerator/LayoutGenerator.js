@@ -162,25 +162,37 @@ ${childrenList.map(id => {
                 <Icon type="home" /> Home <Icon type="question" /> About <Icon type="user" /> Login
               </div>
           </ExampleHeader>
+          <Helper.Intro>
+            <div style={{display: 'flex', justifyContent: 'center', marginBottom: '10px'}}>
+              <Cup.Icon cupSize="50" sizeUnit="px">
+                <Cup.Handle cupSize="50" sizeUnit="px" />
+              </Cup.Icon>
+            </div>
+            <h1>Happier frontend development</h1>
+            <p>Learn how to integrate your mockup's layout by using this tool.</p>
+            <p>This will help you if :</p>
+          </Helper.Intro>
+          <Helper.KeyPoints>
+            <div><Icon type="border-verticle" /><br/> You know about flex, padding and margin but you don't know how to combine them.</div>
+            <div><Icon type="gold" theme="twoTone" /><br/>You don't know how to split the mockup integration.</div>
+            <div><Icon type="star" theme="twoTone" /><br/>You don't know what the best css practice are when it comes to layout.</div>
+          </Helper.KeyPoints>
           <Helper.Content>
             <div {...getRootProps({className: 'dropzone'})}>
               <input {...getInputProps()} />
-                <div style={{display: 'flex', justifyContent: 'center', marginBottom: '10px'}}>
-                  <Cup.Icon cupSize="50" sizeUnit="px" top="-3px">
-                    <Cup.Handle cupSize="50" sizeUnit="px" />
-                  </Cup.Icon>
-                </div>
-                <h1>Happier frontend development</h1>
-                <p>Learn how to integrate your mockup's layout by using this tool.</p>
+
                 <h2>How to</h2>
-                <p>1. Drag and drop a mockup here or click to upload <Icon type="upload" /></p>
-                <p>2. Shape the container <Icon type="project" theme="filled" style={{color: rootContainerBg}} /> and its children <Icon type="build" theme="filled" style={{color: childBaseColor}} /> to match the layout using the Layout Toolbox</p>
-                <p>3. Export the code <Icon type="code" theme="filled" /> to use it on your project</p>
+                <p>1. <Icon type="picture" /> Save your mockup as an image</p>
+                <p>2. <Icon type="table" /> Map out the different blocks, <b>always start from the biggest block</b> (You can print it and draw it if it helps)</p>
+                <p>3. Drag and drop a mockup here or click to upload <Icon type="upload" /></p>
+                <p>4. Shape the container <Icon type="project" theme="filled" style={{color: rootContainerBg}} /> and its children <Icon type="build" theme="filled" style={{color: childBaseColor}} /> to match the layout using the Layout Toolbox</p>
+                <p>5. Export the code <Icon type="code" theme="filled" /> to use it on your project</p>
+                <p>6. <Icon type="sync" /> Repeat the exercice recusrively</p>
             </div>
           </Helper.Content>
-          <ExampleFooter>
+          {/* <ExampleFooter>
             Privacy policy - Terms and conditions
-          </ExampleFooter>
+          </ExampleFooter> */}
       </Helper>}
     </PreviewContainer>
     <ToolContainer>
@@ -198,10 +210,10 @@ ${childrenList.map(id => {
               </Row>
               <Row gutter={10}>
                 <Col span={10}>
-                  <Input addonBefore="x offset:" size="small" defaultValue="0px" onChange={setRootContainerValue('top')}/>
+                  <Input addonBefore="x offset:" size="small" defaultValue="0px" onChange={setRootContainerValue('left')}/>
                 </Col>
                 <Col span={10}>
-                  <Input addonBefore="y offset:" size="small" defaultValue="0px" onChange={setRootContainerValue('left')}/>
+                  <Input addonBefore="y offset:" size="small" defaultValue="0px" onChange={setRootContainerValue('top')}/>
                 </Col>
                 {renderTip("Offset", (<p>Move the container on the mockup</p>))}
               </Row>
@@ -331,6 +343,26 @@ ${childrenList.map(id => {
               </CopyToClipboard>
               <SyntaxHighlighter language='css' style={xcode}>{codeString}</SyntaxHighlighter>
             </div>
+          </Tabs.TabPane>
+          <Tabs.TabPane tab={<span><Icon type="question-circle" theme="filled" /></span>} key="3">
+            <Card title="Happier frontend development">
+            <p>Learn how to integrate your mockup's layout by using this tool.</p>
+            <p>This will help you if :
+              <ul>
+                <li>you know about flex, padding and margin but you don't know how to combine them.</li>
+                <li>you don't know how to split the mockup integration.</li>
+                <li>you don't know what the best css practice are when it comes to layout.</li>
+              </ul>
+            </p>
+            <Card type="inner" title="How to">
+              <p>1. <Icon type="picture" /> Save your mockup as an image</p>
+              <p>2. <Icon type="table" /> Map out the different blocks, <b>always start with the biggest root container</b> (You can print it and draw it if it helps)</p>
+              <p>3. Drag and drop a mockup here or click to upload <Icon type="upload" /></p>
+              <p>4. Shape the container <Icon type="project" theme="filled" style={{color: rootContainerBg}} /> and its children <Icon type="build" theme="filled" style={{color: childBaseColor}} /> to match the layout using the Layout Toolbox</p>
+              <p>5. Export the code <Icon type="code" theme="filled" /> to use it on your project</p>
+              <p>6. <Icon type="sync" /> Repeat the exercice recusrively.</p>
+              </Card>
+            </Card>
           </Tabs.TabPane>
         </Tabs>
       </Card>
