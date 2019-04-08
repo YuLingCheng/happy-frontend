@@ -7,15 +7,20 @@ import { Home, Identify } from "./pages";
 import EdgeCases from "./pages/EdgeCases";
 import Assets from "./pages/Assets";
 import Responsive from "./pages/Responsive";
+import LayoutGenerator from "./pages/LayoutGenerator";
+
+import "antd/dist/antd.css";
 
 const AppRouter = () => (
   <Router>
     <Fragment>
-      <Route path="/" exact component={Home} />
+      <Route path="/" exact component={LayoutGenerator} />
+      {/* <Route path="/" exact component={Home} />
       <Route path="/identify-layouts-components" exact component={Identify} />
       <Route path="/edge-cases" exact component={EdgeCases} />
       <Route path="/assets" exact component={Assets} />
       <Route path="/responsive" exact component={Responsive} />
+      <Route path="/flexbox" exact component={LayoutGenerator} /> */}
     </Fragment>
   </Router>
 );
@@ -34,10 +39,11 @@ const theme = {
     grey_dark: "#3f3a36",
     grey_light: "#A6B0B5",
     grey_shadow: "rgba(102, 102, 102, 0.3)",
-    blue: "rgba(30, 55, 153, 1.0)",
-    blue_transparent: "rgba(30, 55, 153, 0.3)",
+    blue: "rgba(74, 105, 189, 1.0)",
+    blue_transparent: "rgba(74, 105, 189, 0.3)",
     bottleGreen: "rgba(56, 173, 169,1.0)",
-    bottleGreen_transparent: "rgba(56, 173, 169, 0.3)"
+    bottleGreen_transparent: "rgba(56, 173, 169, 0.3)",
+    green: "#78e08f",
   }
 };
 

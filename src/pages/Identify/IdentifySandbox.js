@@ -16,7 +16,10 @@ import {
   H1,
   H2,
   P,
-  ColumnHeader
+  ColumnHeader,
+  HighlightableIcon,
+  HighlightableSpan,
+  PrimaryButtonBackground,
 } from "./Identify.Components";
 import {
   MainContainer,
@@ -27,80 +30,81 @@ import {
   ContactSection,
   InlineContainer,
   DisclaimerSection,
-  FooterBackground
+  FooterBackground,
 } from "./Identify.Layout";
 import Cup from "../../assets/decorations/Cup";
 
-const SandboxContainer = styled.main`
+const SandboxContainer = styled.div`
   position: fixed;
-  right: 4rem;
-  width: 384px;
-  height: 552px;
+  top: 0;
+  right: 0;
+  width: ${props => props.sandboxWidth};
+  height: 100vh;
   flex-shrink: 0;
-  box-shadow: 7px -8px 0 ${props => props.theme.colors.grey_shadow};
   background-color: ${props => props.theme.colors.mainBackground};
 `;
 
-const IdentifySandbox = ({ interactions }) => {
+const IdentifySandbox = ({ interactions, sandboxWidth }) => {
   return (
-    <SandboxContainer>
-      <MainContainer interactions={interactions} label="Main container <body>">
+    <SandboxContainer sandboxWidth={sandboxWidth}>
+      <MainContainer interactions={interactions} label="Main container <main>">
         <HeadSection interactions={interactions} label="Head section <section>">
-          <H1 interactions={interactions}>Happier Design Integration</H1>
-          <P>
+          <H1 interactions={interactions} label="First title <h1>">Happier Design Integration</H1>
+          <P interactions={interactions} label="Paragraph <p>">
             Frontend development can be a pain when it comes to translating a
             mockup into code. Learn a few tips to make it smoother.
           </P>
-          <CTA>
-            Get Started <IoIosArrowDroprightCircle />
-          </CTA>
+          <PrimaryButtonBackground><CTA interactions={interactions} label="Primary button <a>">
+            <HighlightableSpan interactions={interactions} label="Span <span>" top right="56px">Get Started</HighlightableSpan> <HighlightableSpan interactions={interactions} label="Icon <svg>" top right="-47px"><IoIosArrowDroprightCircle /></HighlightableSpan>
+          </CTA></PrimaryButtonBackground>
         </HeadSection>
         <Column
           interactions={interactions}
-          label="Tutorial List section <main>"
+          label="Tutorial List section <section>"
+          left
         >
-          <ColumnHeader>Interactive tutorials</ColumnHeader>
+          <ColumnHeader interactions={interactions} label="List title <p>">Interactive tutorials</ColumnHeader>
           <Fragment>
             <Section
-              icon={<IoMdGrid />}
+              icon={<HighlightableIcon interactions={interactions} label="Icon <svg>" right="-1px"><IoMdGrid /></HighlightableIcon>}
               interactions={interactions}
               label="Tutorial section <article>"
             >
-              <H2>Identify layouts and components</H2>
-              <Description>
+              <H2 interactions={interactions} label="Second title <h2>">Identify layouts and components</H2>
+              <Description interactions={interactions} label="Tuto Description <p>">
                 Make sure that you have all the information about the design:
                 appearance, size, position, alignment.
               </Description>
             </Section>
             <Section
-              icon={<IoIosListBox />}
+              icon={<HighlightableIcon interactions={interactions} label="Icon <svg>" right="-1px"><IoIosListBox /></HighlightableIcon>}
               interactions={interactions}
               label="Tutorial section <article>"
             >
-              <H2>List Edge Cases</H2>
-              <Description>
+              <H2 interactions={interactions} label="Second title <h2>">List Edge Cases</H2>
+              <Description interactions={interactions} label="Tuto Description <p>">
                 Avoid rework and unplaned strategy shift because you missed a
                 behaviour.
               </Description>
             </Section>
             <Section
-              icon={<IoIosImages />}
+              icon={<HighlightableIcon interactions={interactions} label="Icon <svg>" right="-1px"><IoIosImages /></HighlightableIcon>}
               interactions={interactions}
               label="Tutorial section <article>"
             >
-              <H2>Assets</H2>
-              <Description>
+              <H2 interactions={interactions} label="Second title <h2>">Assets</H2>
+              <Description interactions={interactions} label="Tuto Description <p>">
                 Check that you have the right files or resources and that they
                 are usable.
               </Description>
             </Section>
             <Section
-              icon={<IoMdTabletPortrait />}
+              icon={<HighlightableIcon interactions={interactions} label="Icon <svg>" right="-1px"><IoMdTabletPortrait /></HighlightableIcon>}
               interactions={interactions}
               label="Tutorial section <article>"
             >
-              <H2>Responsive</H2>
-              <Description>
+              <H2 interactions={interactions} label="Second title <h2>">Responsive</H2>
+              <Description interactions={interactions} label="Tuto Description <p>">
                 Understand how the layout and component should adapt to the
                 screen.
               </Description>
@@ -110,22 +114,23 @@ const IdentifySandbox = ({ interactions }) => {
         <ContactSection
           interactions={interactions}
           label="Contact section <section>"
+          top
         >
-          <H2>Subscribe to our newsletter</H2>
+          <H2 interactions={interactions} label="Second title <h2>">Subscribe to our newsletter</H2>
           <InlineContainer interactions={interactions} label="Form <form>">
-            <FakeInput>john@gmail.com</FakeInput>
-            <ButtonLink>Submit</ButtonLink>
+            <FakeInput interactions={interactions} label="Text Input <input>">john@gmail.com</FakeInput>
+            <PrimaryButtonBackground><ButtonLink interactions={interactions} label="Primary Button <button>">Submit</ButtonLink></PrimaryButtonBackground>
           </InlineContainer>
         </ContactSection>
         <Background>
-          <Cup cupSize="185" sizeUnit="px" x="16px" top="140px">
+          <Cup cupSize="185" sizeUnit="px" x="16px" top="190px">
             <Cup.Handle cupSize="185" sizeUnit="px" />
           </Cup>
         </Background>
       </MainContainer>
       <DisclaimerSection interactions={interactions} label="Footer <footer>">
-        <H2>Lorem Ipsum</H2>
-        <P>
+        <H2 interactions={interactions} label="Second title <h2>">Lorem Ipsum</H2>
+        <P interactions={interactions} label="Disclaimer <p>" small>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -138,9 +143,9 @@ const IdentifySandbox = ({ interactions }) => {
           interactions={interactions}
           label="Footer navigation <nav>"
         >
-          <FakeLink>Link 1</FakeLink>
-          <FakeLink>Link 2</FakeLink>
-          <FakeLink>Link 3</FakeLink>
+          <FakeLink interactions={interactions} label="Link <a>">Link 1</FakeLink>
+          <FakeLink interactions={interactions} label="Link <a>">Link 2</FakeLink>
+          <FakeLink interactions={interactions} label="Link <a>">Link 3</FakeLink>
         </InlineContainer>
       </DisclaimerSection>
       <FooterBackground />

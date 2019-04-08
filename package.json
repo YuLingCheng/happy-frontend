@@ -3,17 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "antd": "^3.16.1",
+    "lodash": "^4.17.11",
     "react": "^16.7.0-alpha.2",
+    "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.7.0-alpha.2",
+    "react-dropzone": "^10.1.0",
     "react-icons": "^3.2.2",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1",
     "react-switch": "^3.0.4",
+    "react-syntax-highlighter": "^10.2.1",
     "styled-components": "^4.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3008 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

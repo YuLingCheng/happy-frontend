@@ -16,6 +16,7 @@ const Identify = () => {
     displayComponents: false,
     displayComponentLabels: false
   });
+  const sandboxWidth = '480px';
 
   return (
     <Fragment>
@@ -25,11 +26,12 @@ const Identify = () => {
           <IdentifyDescription
             interactions={interactions}
             setInteractions={setInteractions}
+            sandboxWidth={sandboxWidth}
           />
-          <IdentifySandbox interactions={interactions} />
+          <IdentifySandbox sandboxWidth={sandboxWidth} interactions={interactions} />
         </IdentifyContainer>
       </Main>
-      <BackgroundBase>
+      <BackgroundBase opacity="0.5">
         <Pencil.Shadow rotate="25" left="145px" top="0">
           <Pencil />
         </Pencil.Shadow>
