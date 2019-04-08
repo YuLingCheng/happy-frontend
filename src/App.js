@@ -14,12 +14,13 @@ import "antd/dist/antd.css";
 const AppRouter = () => (
   <Router>
     <Fragment>
-      <Route path="/" exact component={Home} />
+      <Route path="/" exact component={LayoutGenerator} />
+      {/* <Route path="/" exact component={Home} />
       <Route path="/identify-layouts-components" exact component={Identify} />
       <Route path="/edge-cases" exact component={EdgeCases} />
       <Route path="/assets" exact component={Assets} />
       <Route path="/responsive" exact component={Responsive} />
-      <Route path="/flexbox" exact component={LayoutGenerator} />
+      <Route path="/flexbox" exact component={LayoutGenerator} /> */}
     </Fragment>
   </Router>
 );
