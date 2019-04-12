@@ -8,6 +8,7 @@ import EdgeCases from "./pages/EdgeCases";
 import Assets from "./pages/Assets";
 import Responsive from "./pages/Responsive";
 import LayoutGenerator from "./pages/LayoutGenerator";
+import ExpertLayoutGenerator from "./pages/ExpertLayoutGenerator";
 
 import "antd/dist/antd.css";
 
@@ -15,6 +16,7 @@ const AppRouter = () => (
   <Router>
     <Fragment>
       <Route path="/" exact component={LayoutGenerator} />
+      <Route path="/expert" exact component={ExpertLayoutGenerator} />
       {/* <Route path="/" exact component={Home} />
       <Route path="/identify-layouts-components" exact component={Identify} />
       <Route path="/edge-cases" exact component={EdgeCases} />
