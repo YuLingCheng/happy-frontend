@@ -66,8 +66,8 @@ const LayoutGenerator = () => {
     padding: '0',
     justifyContent: 'flex-start',
     alignItems: 'stretch',
-    width: '100%',
-    height: 'auto',
+    width: '200px',
+    height: '200px',
     top: '0px',
     left: '0px',
     flexWrap: 'nowrap',
@@ -146,7 +146,7 @@ const LayoutGenerator = () => {
     `height: ${rootContainerProps.height};`,
     `box-sizing: border-box;`,
     `display: flex;`,
-    `flexDirection: ${rootContainerProps.flexDirection};`,
+    `flex-direction: ${rootContainerProps.flexDirection};`,
     `padding: ${rootContainerProps.padding};`,
     `justify-content: ${rootContainerProps.justifyContent};`,
     rootContainerProps.alignItems !== initialRootContainerProps.alignItems && `align-items: ${rootContainerProps.alignItems};`,
@@ -281,10 +281,10 @@ ${childrenList.map(id => {
             <Card type="inner" title="1. Shape the container (and move it if necessary)">
               <Row gutter={10}>
                 <Col span={10}>
-                  <Input addonBefore="width:" size="small" defaultValue="100%" onChange={setRootContainerValue('width')}/>
+                  <Input addonBefore="width:" size="small" defaultValue="200px" onChange={setRootContainerValue('width')}/>
                 </Col>
                 <Col span={10}>
-                  <Input addonBefore="height:" size="small" defaultValue="auto" onChange={setRootContainerValue('height')}/>
+                  <Input addonBefore="height:" size="small" defaultValue="200px" onChange={setRootContainerValue('height')}/>
                 </Col>
               </Row>
               <Row gutter={10}>
@@ -300,14 +300,29 @@ ${childrenList.map(id => {
             <Card type="inner" title="2. Define the number of children">
               <InputNumber size="small" defaultValue={1} min={1} onChange={changeChildrenNb} />
             </Card>
-            <Card type="inner" title="3. Define the chlidren sorting direction">
+            <Card type="inner" title="3. Define the children sorting direction">
                 <Radio.Group size="small" defaultValue="row" buttonStyle="solid" onChange={setRootContainerValue('flexDirection')}>
                   <Radio.Button value="row">row</Radio.Button>
                   <Radio.Button value="column">column</Radio.Button>
                 </Radio.Group>
             </Card>
             <Card type="inner" title="4. Define the children position relatively to their container">
-              <Divider orientation="left" style={{marginTop: 0}}>Space between container and children:</Divider>
+              <Divider orientation="left" style={{marginTop: 0}}>{isRowDirection ? 'Horizontal' : 'Vertical'} distribution (justify-content):</Divider>
+              <Radio.Group size="small" defaultValue="flex-start" buttonStyle="solid" onChange={setRootContainerValue('justifyContent')}>
+                <Radio.Button value="flex-start">flex-start</Radio.Button>
+                <Radio.Button value="flex-end">flex-end</Radio.Button>
+                <Radio.Button value="center">center</Radio.Button>
+                <Radio.Button value="space-between">space-between</Radio.Button>
+                <Radio.Button value="space-around">space-around</Radio.Button>
+              </Radio.Group>
+              <Divider orientation="left">{isRowDirection ? 'Vertical' : 'Horizontal'} distribution (align-items):</Divider>
+              <Radio.Group size="small" defaultValue="stretch" buttonStyle="solid" onChange={setRootContainerValue('alignItems')}>
+                <Radio.Button value="flex-start">flex-start</Radio.Button>
+                <Radio.Button value="flex-end">flex-end</Radio.Button>
+                <Radio.Button value="center">center</Radio.Button>
+                <Radio.Button value="stretch">stretch</Radio.Button>
+              </Radio.Group>
+              <Divider orientation="left">Known space between container's border and children:</Divider>
               <Row>
                 <Col span={10}>
                   <Input addonBefore="padding:" size="small" defaultValue="0" onChange={setRootContainerValue('padding')}/>
@@ -321,21 +336,6 @@ ${childrenList.map(id => {
                   </div>
                 )} />}
               </Row>
-              <Divider orientation="left">justify-content:</Divider>
-              <Radio.Group size="small" defaultValue="flex-start" buttonStyle="solid" onChange={setRootContainerValue('justifyContent')}>
-                <Radio.Button value="flex-start">flex-start</Radio.Button>
-                <Radio.Button value="flex-end">flex-end</Radio.Button>
-                <Radio.Button value="center">center</Radio.Button>
-                <Radio.Button value="space-between">space-between</Radio.Button>
-                <Radio.Button value="space-around">space-around</Radio.Button>
-              </Radio.Group>
-            <Divider orientation="left">align-items:</Divider>
-              <Radio.Group size="small" defaultValue="stretch" buttonStyle="solid" onChange={setRootContainerValue('alignItems')}>
-                <Radio.Button value="flex-start">flex-start</Radio.Button>
-                <Radio.Button value="flex-end">flex-end</Radio.Button>
-                <Radio.Button value="center">center</Radio.Button>
-                <Radio.Button value="stretch">stretch</Radio.Button>
-              </Radio.Group>
             </Card>
             <Card type="inner" title={`5. Can children display on several ${isRowDirection ? 'lines' : 'columns'} ?`}>
               <Divider orientation="left" style={{marginTop: 0}}>flex-wrap:</Divider>
@@ -357,10 +357,14 @@ ${childrenList.map(id => {
                   <Collapse.Panel header={<span><Icon type="build" theme="filled" style={{color: childBaseColor, filter: getChildColor(id)}} /> Child {id}</span>} key={id}>
                     <Tabs size="small">
                       <Tabs.TabPane tab="Size" key={1}>
-                        <Divider orientation="left" style={{marginTop: 0}}>Specific size ({isRowDirection ? 'Width' : 'Height'}):</Divider>
+                        <Divider orientation="left" style={{marginTop: 0}}>Specific {isRowDirection ? 'width' : 'height'}:</Divider>
                         <Row gutter={8}>
                           <Col span={20}>
                             <Input addonBefore="flex-basis:" size="small" defaultValue="auto" onChange={setChildProp(id)('flexBasis')}/>
+                          </Col>
+                          <Col span={16}>
+                            <Input addonBefore="flex-shrink:" size="small" defaultValue="1" onChange={setChildProp(id)('flexShrink')}/>
+                            0 if fixed size, > 0 if it should shrink when not enough space
                           </Col>
                         </Row>
                         <Divider orientation="left">Take available space ({isRowDirection ? 'Width' : 'Height'}):</Divider>
@@ -369,11 +373,8 @@ ${childrenList.map(id => {
                             <Input addonBefore="flex-grow:" size="small" defaultValue="0" onChange={setChildProp(id)('flexGrow')}/>
                           </Col>
                         </Row>
-                        <Divider orientation="left">Shrink if not enough space ({isRowDirection ? 'Width' : 'Height'}):</Divider>
                         <Row gutter={8}>
-                          <Col span={22}>
-                            <Input addonBefore="flex-shrink:" size="small" defaultValue="1" onChange={setChildProp(id)('flexShrink')}/>
-                          </Col>
+
                         </Row>
                         <Divider />
                         <Row gutter={8}>
