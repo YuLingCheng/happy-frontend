@@ -17,14 +17,15 @@ export const getTutoMessageMap = (childBaseColor, rootContainerBg, highlightCont
   1: {
     message: 'Step 1 : Shape the container',
     description: (<p>
-      In the <Icon type="layout" theme="filled" /> Layout Toolbox "Shape" tab, define the root container's width and height, so the <span style={{backgroundColor: rootContainerBg}}>yellow container</span> covers the <span style={{border: `solid 2px ${highlightContainerColor}`}}>main container</span>.
-      <br />In our example, try <i>width = 100%</i> and <i>height = 94vh</i>
+      The aim is to cover the <span style={{border: `solid 2px ${highlightContainerColor}`}}>green border block</span> with the <span style={{backgroundColor: rootContainerBg}}>yellow container</span>, and each <span style={{border: `solid 2px ${highlightChildColor}`}}>3 children containers (nav, main, footer)</span> by the <span style={{backgroundColor: childBaseColor}}>child boxes</span>.
+      <br />So First, in the <Icon type="layout" theme="filled" /> Layout Toolbox "Shape" tab, define the root container's width and height, so the <span style={{backgroundColor: rootContainerBg}}>yellow container</span> covers the <span style={{border: `solid 2px ${highlightContainerColor}`}}>main container</span>.
+      <br />In our example, try <i>width = 100%</i> and <i>height = 660px</i>
     </p>)
   },
   2: {
     message: 'Step 2 : Define the number of children',
     description: (<p>
-      Set the number of children to <i>3</i>.
+      We have <span style={{border: `solid 2px ${highlightChildColor}`}}>3 children containers (nav, main, footer)</span>, so set the number of children to <i>3</i>.
       <br />You'll see more <span style={{backgroundColor: childBaseColor}}>child boxes</span> apear in the <span style={{backgroundColor: rootContainerBg}}>main container</span>
     </p>)
   },
