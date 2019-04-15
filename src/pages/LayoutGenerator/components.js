@@ -99,7 +99,7 @@ Helper.Content = styled.div`
 `
 
 Helper.Intro = styled.div`
-  padding: 30px 0 15px;
+  padding: 40px 0 30px;
   text-align: center;
   color: ${darkColor};
 
@@ -116,7 +116,7 @@ Helper.KeyPoints = styled.div`
   align-items: start;
   color: ${reverseColor};
   background-color: ${darkColor};
-  padding: 20px 30px;
+  padding: 30px 40px;
   text-align: left;
   flex-wrap: wrap
   font-size: x-small;
@@ -124,7 +124,7 @@ Helper.KeyPoints = styled.div`
   .keypoints__header {
     text-align: center;
     flex: 1 0 100%;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     font-size: small;
   }
 
@@ -133,7 +133,7 @@ Helper.KeyPoints = styled.div`
     display: flex;
 
     &:not(:last-child) {
-      margin-right: 20px;
+      margin-right: 40px;
     }
 
     i {

@@ -82,14 +82,14 @@ export const getTutoMessageMap = (childBaseColor, rootContainerBg, highlightCont
     description: (<p>
       If after all previous settings, we still need to add a gap between two <span style={{backgroundColor: childBaseColor}}>siblings</span>, we'll set a <i>margin</i>.
       <br />Here, we'll leave it at <i>0</i>.
-      <br /><br /> You should now be ready to get the code to apply it on your project !. Click the "Done!" button.
+      <br /><br /> You should now be ready to get the code to apply it on your project. Click the "Done!" button.
     </p>)
   },
   8: {
     message: 'Step 8 : Get the code',
     description: (<p>
       In the <Icon type="code" theme="filled" /> Code tab you'll see the css code to apply to the <span style={{backgroundColor: rootContainerBg}}>container</span> and <span style={{backgroundColor: childBaseColor}}>children</span>.
-      <br />Adapt the fixed sizes values (<i>width</i>, <i>height</i>, <i>flex-basis</i>) according to the actual values from the mockup.
+      <br /><br />Adapt the fixed sizes values (<i>width</i>, <i>height</i>, <i>flex-basis</i>) according to the actual values from the mockup.
     </p>)
   },
   finish: {
