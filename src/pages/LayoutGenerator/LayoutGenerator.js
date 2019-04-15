@@ -300,6 +300,8 @@ ${childrenList.map(id => {
     const btn = <Button onClick={() => {updateNotification(1);setDisplayBlocks(true);}}>Next</Button>;
     if (tutoStep === null) {
       setMockupPreview(null);
+      setLayoutToolActiveKey('1');
+      setShaperActiveKey(1);
       notification.info({
         ...defaultNotificationOptions,
         btn,
@@ -348,12 +350,12 @@ ${childrenList.map(id => {
                 <span>You know about flex, padding and margin but you don't know how to combine them.</span>
               </div>
               <div className="keypoint">
-                <Icon type="gold" />
-                <span>You don't know how to split the mockup integration.</span>
-              </div>
-              <div className="keypoint">
                 <Icon type="star" />
                 <span>You don't know what the best css practice are when it comes to layout.</span>
+              </div>
+              <div className="keypoint">
+                <Icon type="gold" />
+                <span>You don't know how to split the mockup integration.</span>
               </div>
             </Helper.KeyPoints>
             <Helper.Content>
@@ -374,7 +376,7 @@ ${childrenList.map(id => {
     <ToolContainer>
       <Card
         title={<PageHeader getInputProps={getInputProps} getRootProps={getRootProps} />}
-        style={{height: '100%'}}
+        style={{height: '100%', overflow: 'auto'}}
       >
         <Tabs
           type="card"
@@ -391,8 +393,9 @@ ${childrenList.map(id => {
               onChange={onStepClick}
             >
               <Tabs.TabPane tab="1" key={1} style={{height: '100%'}}>
-                <h3>Visualize the root container you want to integrate</h3>
-                <p>Use these inputs to make the <span style={{backgroundColor: rootContainerBg}}>yellow container</span> cover the root container.</p>
+                <h3>Visualize the container you want to integrate</h3>
+                <p>Always start from the root container, follow these 7 steps, then repeat recursively.</p>
+                <p>Use these inputs to make the <span style={{backgroundColor: rootContainerBg}}>yellow container</span> cover the container you want to integrate.</p>
                 <Row gutter={10}>
                   <Col span={10}>
                     <Input addonBefore="width:" size="small" value={rootContainerProps.width} onChange={setRootContainerValue('width')}/>
@@ -416,6 +419,7 @@ ${childrenList.map(id => {
                 <div>
                   <h3>How many child blocks in the main container?</h3>
                   <InputNumber size="small" value={childrenNb} min={1} onChange={changeChildrenNb} />
+                  <p><br/>Let's make these <span style={{backgroundColor: childBaseColor}}>blocks</span> cover the right areas on the mockup.</p>
                 </div>
                 <NextStepButton />
               </Tabs.TabPane>
@@ -476,7 +480,7 @@ ${childrenList.map(id => {
                   <h3>Can children display on several {isRowDirection ? 'lines' : 'columns'}?</h3>
                   <div>
                     <p>Select 'wrap' for multi {isRowDirection ? 'lines' : 'columns'}.</p>
-                    <p>You can combine 'wrap' with 'flex-basis: 100%;' to isolate a child on one {isRowDirection ? 'line' : 'column'}.</p>
+                    <p>In the next step you can combine 'wrap' with 'flex-basis: 100%;' to isolate a child on one {isRowDirection ? 'line' : 'column'}.</p>
                   </div>
                   <Radio.Group size="small" value={rootContainerProps.flexWrap} buttonStyle="solid" onChange={setRootContainerValue('flexWrap')}>
                     <Radio.Button value="nowrap">nowrap</Radio.Button>
@@ -488,8 +492,8 @@ ${childrenList.map(id => {
               </Tabs.TabPane>
               <Tabs.TabPane tab="6" key={6}>
                 <div>
-                  <h3>If a child has specific size in the container, define it now</h3>
-                  <Collapse defaultActiveKey={['1']}>
+                  <h3>Adjust the size and placement of each child</h3>
+                  <Collapse defaultActiveKey={['1']} accordion>
                     {childrenList.map(id => (
                       <Collapse.Panel header={<span><Icon type="build" theme="filled" style={{color: childBaseColor, filter: getChildColor(id)}} /> Child {id}</span>} key={id}>
                         <Tabs size="small">
@@ -512,13 +516,11 @@ ${childrenList.map(id => {
                             </Row>
                             <Divider orientation="left">Take the size of its content:</Divider>
                             <p>Simulate content in the child (text only)</p>
-                            <Row gutter={8}>
-                              <TextArea
-                                value={childrenContentMap[id]}
-                                autosize={{ minRows: 2, maxRows: 6 }}
-                                onChange={setChildContent(id)}
-                              />
-                            </Row>
+                            <TextArea
+                              value={childrenContentMap[id]}
+                              autosize={{ minRows: 2, maxRows: 6 }}
+                              onChange={setChildContent(id)}
+                            />
                             <Divider />
                             <Row gutter={8}>
                               <Col span={22}>
@@ -527,7 +529,8 @@ ${childrenList.map(id => {
                             </Row>
                           </Tabs.TabPane>
                           <Tabs.TabPane tab="Advanced" key={2}>
-                            <Divider orientation="left" style={{marginTop: 0}}>align-self:</Divider>
+                            <h4>Does this child have a {isRowDirection ? 'vertical' : 'horizontal'} position that's different from it's siblings?</h4>
+                            <p>Use align-self to define it:</p>
                             <Radio.Group size="small" value={childrenPropsMap[id] && childrenPropsMap[id].alignSelf} buttonStyle="solid" onChange={setChildProp(id)('alignSelf')}>
                               <Radio.Button value="auto">auto</Radio.Button>
                               <Radio.Button value="flex-start">flex-start</Radio.Button>
@@ -565,6 +568,7 @@ ${childrenList.map(id => {
             </Tabs>
           </Tabs.TabPane>
           <Tabs.TabPane tab={<span><Icon type="code" theme="filled" /> Code</span>} key="2">
+            <p>Adapt the fixed sizes values (<i>width</i>, <i>height</i>, <i>flex-basis</i>) according to the actual values from the mockup.</p>
             <div style={{position: 'relative'}}>
               <CopyToClipboard text={codeString} onCopy={() => alert('copied')}>
                 <Button icon="copy" size="small" style={{position: 'absolute', right: '5px', top: '5px'}}>
