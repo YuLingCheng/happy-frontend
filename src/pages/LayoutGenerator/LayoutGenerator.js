@@ -264,6 +264,7 @@ ${childrenList.map(id => {
     highlightChildColor
   );
   const stopTuto = () => {
+    setDisplayBlocks(true);
     setTutoStep(null);
   };
   const defaultNotificationOptions = {
