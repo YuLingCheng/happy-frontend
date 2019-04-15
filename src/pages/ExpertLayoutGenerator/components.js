@@ -80,11 +80,11 @@ Helper.Content = styled.div`
   padding: 20px 0 30px;
   color: ${darkColor};
   font-family: 'Noto Sans TC', sans-serif;
-  font-size: small;
+  font-size: x-small;
 
   h2 {
     color: ${darkColor};
-    font-size: medium;
+    font-size: small;
     font-weight: bold;
   }
 
@@ -191,5 +191,5 @@ export const PageHeader = ({getRootProps, getInputProps}) => (
 );
 
 export const Tip = ({title, content}) => (
-  <Popover title={title} content={content}><Icon type="question-circle" theme="twoTone" /></Popover>
+  <Popover title={title} content={content}><Icon type="question-circle" theme="filled" /></Popover>
 );
