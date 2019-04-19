@@ -62,14 +62,7 @@ export const getTutoMessageMap = (childBaseColor, rootContainerBg, highlightCont
       </div>)
     },
     5: {
-      message: 'Step 5 : Can children display on several columns?',
-      description: (<p>
-        No, so we'll leave <i>flex-wrap</i> to <i>nowrap</i>.
-        <br/><br/> When you are done, click on the "Next" button.
-      </p>)
-    },
-    6: {
-      message: 'Step 6 : If a child has specific size in the container, define it',
+      message: 'Step 5 : If a child has specific size in the container, define it',
       description: (<p>
         This is the step is where you'll need to infer the information from the mockup or ask the designer:
         <ul>
@@ -84,16 +77,16 @@ export const getTutoMessageMap = (childBaseColor, rootContainerBg, highlightCont
         <br /><br /> When you are done, click on the "Next" button.
       </p>)
     },
-    7: {
-      message: 'Step 7 : Finally, define the children position relatively to each other',
+    6: {
+      message: 'Step 6 : Finally, define the children position relatively to each other',
       description: (<p>
         If after all previous settings, we still need to add a gap between two <span style={blueContainerStyle}>siblings</span>, we'll set a <i>margin</i>.
         <br />Here, we'll leave it at <i>0</i>.
         <br /><br /> You should now be ready to get the code to apply it on your project. Click the "Done!" button.
       </p>)
     },
-    8: {
-      message: 'Step 8 : Get the code',
+    7: {
+      message: 'Step 7 : Get the code',
       description: (<p>
         In the <Icon type="code" theme="filled" /> Code tab you'll see the css code to apply to the <span style={yellowContainerStyle}>container</span> and <span style={blueContainerStyle}>children</span>.
         <br /><br />Adapt the fixed sizes values (<i>width</i>, <i>height</i>, <i>flex-basis</i>) according to the actual values from the mockup.

@@ -190,8 +190,8 @@ ${childrenList.map(id => {
       if (highlightExampleBlocks) {
         setDisplayBlocks(true);
         setTutoStep(() => {
-          updateNotification(8);
-          return 7;
+          updateNotification(7);
+          return 6;
         });
       }
       exportCode();
@@ -241,8 +241,8 @@ ${childrenList.map(id => {
     if (highlightExampleBlocks) {
       setDisplayBlocks(true);
       setTutoStep(() => {
-        updateNotification(8, true);
-        return 7;
+        updateNotification(7, true);
+        return 6;
       });
     }
     exportCode(); setLayoutToolActiveKey('2');
@@ -473,21 +473,6 @@ ${childrenList.map(id => {
               </Tabs.TabPane>
               <Tabs.TabPane tab="5" key={5}>
                 <div>
-                  <h3>Can children display on several {isRowDirection ? 'lines' : 'columns'}?</h3>
-                  <div>
-                    <p>Select 'wrap' for multi {isRowDirection ? 'lines' : 'columns'}.</p>
-                    <p>In the next step you can combine 'wrap' with 'flex-basis: 100%;' to isolate a child on one {isRowDirection ? 'line' : 'column'}.</p>
-                  </div>
-                  <Radio.Group size="small" value={rootContainerProps.flexWrap} buttonStyle="solid" onChange={setRootContainerValue('flexWrap')}>
-                    <Radio.Button value="nowrap">nowrap</Radio.Button>
-                    <Radio.Button value="wrap">wrap</Radio.Button>
-                    <Radio.Button value="wrap-reverse">wrap-reverse</Radio.Button>
-                  </Radio.Group>
-                </div>
-                <NextStepButton />
-              </Tabs.TabPane>
-              <Tabs.TabPane tab="6" key={6}>
-                <div>
                   <h3>Adjust the size and placement of each child</h3>
                   <Collapse defaultActiveKey={['1']} accordion>
                     {childrenList.map(id => (
@@ -543,7 +528,7 @@ ${childrenList.map(id => {
                 </div>
                 <NextStepButton />
               </Tabs.TabPane>
-              <Tabs.TabPane tab="7" key={7}>
+              <Tabs.TabPane tab="6" key={6}>
                 <div>
                   <h3>Finally, define the children position relatively to each other</h3>
                   <Divider orientation="left" style={{marginTop: 0}}>Gutter size:</Divider>
@@ -560,6 +545,22 @@ ${childrenList.map(id => {
                   </Row>
                 </div>
                 <Button type="primary" style={{marginTop: '10px'}} onClick={onDoneButtonClick}>Done! Show me the code</Button>
+              </Tabs.TabPane>
+              <Tabs.TabPane tab="+" key={7}>
+                <div>
+                  <h3>Advanced customization</h3>
+                  <p>In rare cases, you might need these.</p>
+                  <h4>Can children display on several {isRowDirection ? 'lines' : 'columns'}?</h4>
+                  <div>
+                    <p>Select 'wrap' for multi {isRowDirection ? 'lines' : 'columns'}.</p>
+                    <p>In the next step you can combine 'wrap' with 'flex-basis: 100%;' to isolate a child on one {isRowDirection ? 'line' : 'column'}.</p>
+                  </div>
+                  <Radio.Group size="small" value={rootContainerProps.flexWrap} buttonStyle="solid" onChange={setRootContainerValue('flexWrap')}>
+                    <Radio.Button value="nowrap">nowrap</Radio.Button>
+                    <Radio.Button value="wrap">wrap</Radio.Button>
+                    <Radio.Button value="wrap-reverse">wrap-reverse</Radio.Button>
+                  </Radio.Group>
+                </div>
               </Tabs.TabPane>
             </Tabs>
           </Tabs.TabPane>
