@@ -16,7 +16,8 @@ const AppRouter = () => (
   <Router>
     <Fragment>
       <Route path="/" exact component={LayoutGenerator} />
-      <Route path="/expert" exact component={ExpertLayoutGenerator} />
+      <Route path="/dev/learn" exact component={LayoutGenerator} />
+      <Route path="/dev/advanced" exact component={ExpertLayoutGenerator} />
       {/* <Route path="/" exact component={Home} />
       <Route path="/identify-layouts-components" exact component={Identify} />
       <Route path="/edge-cases" exact component={EdgeCases} />
