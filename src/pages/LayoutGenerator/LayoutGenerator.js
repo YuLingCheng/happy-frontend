@@ -1,4 +1,5 @@
 import _isEqual from 'lodash/isEqual';
+import _range from 'lodash/range';
 import React, { useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useDropzone } from 'react-dropzone';
@@ -36,6 +37,7 @@ import {
 } from './components';
 import Cup from '../../assets/decorations/Cup';
 import { getTutoMessageMap } from './tutorialMessages';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 SyntaxHighlighter.registerLanguage('css', css);
 
@@ -91,20 +93,27 @@ const LayoutGenerator = () => {
   const changeChildrenNb = (newNumber) => {
     setChildrenNb(prevNumber => {
       if (prevNumber < newNumber) {
+        const childRange = _range(prevNumber + 1, newNumber + 1);
         setChildPropsMap(prev => ({
           ...prev,
-          [newNumber]: initialChildProps,
+          ...childRange.reduce((previousChildren, childIndex) => ({
+            ...previousChildren,
+            [childIndex]: initialChildProps,
+          }), {})
         }));
         setChildContentMap(prev => ({
           ...prev,
-          [newNumber]: `Child ${newNumber}`,
+          ...childRange.reduce((previousChildren, childIndex) => ({
+            ...previousChildren,
+            [childIndex]: `Child ${childIndex}`,
+          }), {})
         }));
       }
       return newNumber;
     });
   }
 
-  const childrenList = [...Array(childrenNb).keys()].map(id => id + 1);
+  const childrenList = _range(1, childrenNb + 1);
   const getChildColor = (id) => `hue-rotate(${(id-1)/childrenList.length*360}deg)`;
 
   const initialChildPropsMap = { 1: initialChildProps };
