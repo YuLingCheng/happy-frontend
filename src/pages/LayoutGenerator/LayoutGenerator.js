@@ -3,6 +3,7 @@ import _range from 'lodash/range';
 import React, { useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useDropzone } from 'react-dropzone';
+import { Rnd } from 'react-rnd';
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import css from 'react-syntax-highlighter/dist/esm/languages/hljs/css';
 import xcode from 'react-syntax-highlighter/dist/esm/styles/hljs/xcode';
@@ -37,7 +38,6 @@ import {
 } from './components';
 import Cup from '../../assets/decorations/Cup';
 import { getTutoMessageMap } from './tutorialMessages';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 SyntaxHighlighter.registerLanguage('css', css);
 
@@ -45,12 +45,13 @@ SyntaxHighlighter.registerLanguage('css', css);
 const rootContainerBg = 'rgba(252, 209, 67, 0.3)';
 const RootContainer = styled.div`
   background: ${rootContainerBg};
-  display: flex;
   position: relative;
-  z-index: 10;
+  border: 3px solid ${highlightContainerColor};
+  width: 100%;
+  height: 100%;
 
   & :not(:last-child) {
-    ${props => `margin-${props.marginInfo.isRowDirection ? 'right' : 'bottom'}: ${props.marginInfo.childrenMargin};`}
+    ${props => `margin-${props.margininfo.isRowDirection ? 'right' : 'bottom'}: ${props.margininfo.childrenMargin};`}
   }
 `;
 const childBaseColor = 'rgba(0, 113, 139, 0.54)';
@@ -64,14 +65,11 @@ position: relative;
 const LayoutGenerator = () => {
   // initialize the root container layer
   const initialRootContainerProps = {
+    display: 'flex',
     flexDirection: 'row',
     padding: '0',
     justifyContent: 'flex-start',
     alignItems: 'stretch',
-    width: '200px',
-    height: '200px',
-    top: '0px',
-    left: '0px',
     flexWrap: 'nowrap',
   };
   const [rootContainerProps, setRootContainerProps] = useState(initialRootContainerProps);
@@ -161,8 +159,8 @@ const LayoutGenerator = () => {
   const exportCode = () => {
     setCodeString(`.container {
     ${[
-    `width: ${rootContainerProps.width};`,
-    `height: ${rootContainerProps.height};`,
+    `width: SET_ME_IF_NEEDED;`,
+    `height: SET_ME_IF_NEEDED;`,
     `display: flex;`,
     `flex-direction: ${rootContainerProps.flexDirection};`,
     `padding: ${rootContainerProps.padding};`,
@@ -193,8 +191,8 @@ ${childrenList.map(id => {
       if (highlightExampleBlocks) {
         setDisplayBlocks(true);
         setTutoStep(() => {
-          updateNotification(8);
-          return 7;
+          updateNotification(7);
+          return 6;
         });
       }
       exportCode();
@@ -244,8 +242,8 @@ ${childrenList.map(id => {
     if (highlightExampleBlocks) {
       setDisplayBlocks(true);
       setTutoStep(() => {
-        updateNotification(8, true);
-        return 7;
+        updateNotification(7, true);
+        return 6;
       });
     }
     exportCode(); setLayoutToolActiveKey('2');
@@ -323,8 +321,13 @@ ${childrenList.map(id => {
 
   return (
   <MainContainer>
-    <PreviewContainer mockupPreview={mockupPreview}>
-      { displayBlocks && <RootContainer style={rootContainerProps} marginInfo={marginInfo}>
+    <PreviewContainer mockupPreview={mockupPreview} id="preview-container">
+      { displayBlocks && <Rnd bounds="parent" style={{zIndex: 10}} default={{
+        x: 20,
+        y: 60,
+        width: 150,
+        height: 150,
+      }}><RootContainer style={rootContainerProps} margininfo={marginInfo} >
         {childrenList.map(id => (
           <Child
             key={id}
@@ -333,7 +336,7 @@ ${childrenList.map(id => {
             {childrenContentMap[id]}
           </Child>)
         )}
-      </RootContainer>}
+      </RootContainer></Rnd>}
       {!mockupPreview && <Helper highlight={highlightExampleBlocks}>
           <ExampleHeader highlight={highlightExampleBlocks}>
               <div style={{display: 'flex', alignItems: 'center'}}>
@@ -404,24 +407,9 @@ ${childrenList.map(id => {
               <Tabs.TabPane tab="1" key={1} style={{height: '100%'}}>
                 <h3>Visualize the container you want to integrate</h3>
                 <p>Always start from the root container, follow these 7 steps, then repeat recursively.</p>
-                <p>Use these inputs to make the <span style={{backgroundColor: rootContainerBg}}>yellow container</span> cover the container you want to integrate.</p>
-                <Row gutter={10}>
-                  <Col span={10}>
-                    <Input addonBefore="width:" size="small" value={rootContainerProps.width} onChange={setRootContainerValue('width')}/>
-                  </Col>
-                  <Col span={10}>
-                    <Input addonBefore="height:" size="small" value={rootContainerProps.height} onChange={setRootContainerValue('height')}/>
-                  </Col>
-                </Row>
-                <Row gutter={10}>
-                  <Col span={10}>
-                    <Input addonBefore="x offset:" size="small" value={rootContainerProps.left} onChange={setRootContainerValue('left')}/>
-                  </Col>
-                  <Col span={10}>
-                    <Input addonBefore="y offset:" size="small" value={rootContainerProps.top} onChange={setRootContainerValue('top')}/>
-                  </Col>
-                  {<Tip title="Offset" content={(<p>Move the container on the mockup</p>)} />}
-                </Row>
+                <p>Cover the container you want to integrate with the yellow container</p>
+                <div style={{backgroundColor: rootContainerBg, border: `3px solid ${highlightContainerColor}`, width: 40, height: 40, margin: '0 auto 10px'}} />
+                <p>Simply resize it <Icon type="arrows-alt" /> and move it <Icon type="drag" /> by dragging it.</p>
                 <NextStepButton />
               </Tabs.TabPane>
               <Tabs.TabPane tab="2" key={2}>
@@ -486,21 +474,6 @@ ${childrenList.map(id => {
               </Tabs.TabPane>
               <Tabs.TabPane tab="5" key={5}>
                 <div>
-                  <h3>Can children display on several {isRowDirection ? 'lines' : 'columns'}?</h3>
-                  <div>
-                    <p>Select 'wrap' for multi {isRowDirection ? 'lines' : 'columns'}.</p>
-                    <p>In the next step you can combine 'wrap' with 'flex-basis: 100%;' to isolate a child on one {isRowDirection ? 'line' : 'column'}.</p>
-                  </div>
-                  <Radio.Group size="small" value={rootContainerProps.flexWrap} buttonStyle="solid" onChange={setRootContainerValue('flexWrap')}>
-                    <Radio.Button value="nowrap">nowrap</Radio.Button>
-                    <Radio.Button value="wrap">wrap</Radio.Button>
-                    <Radio.Button value="wrap-reverse">wrap-reverse</Radio.Button>
-                  </Radio.Group>
-                </div>
-                <NextStepButton />
-              </Tabs.TabPane>
-              <Tabs.TabPane tab="6" key={6}>
-                <div>
                   <h3>Adjust the size and placement of each child</h3>
                   <Collapse defaultActiveKey={['1']} accordion>
                     {childrenList.map(id => (
@@ -556,7 +529,7 @@ ${childrenList.map(id => {
                 </div>
                 <NextStepButton />
               </Tabs.TabPane>
-              <Tabs.TabPane tab="7" key={7}>
+              <Tabs.TabPane tab="6" key={6}>
                 <div>
                   <h3>Finally, define the children position relatively to each other</h3>
                   <Divider orientation="left" style={{marginTop: 0}}>Gutter size:</Divider>
@@ -573,6 +546,22 @@ ${childrenList.map(id => {
                   </Row>
                 </div>
                 <Button type="primary" style={{marginTop: '10px'}} onClick={onDoneButtonClick}>Done! Show me the code</Button>
+              </Tabs.TabPane>
+              <Tabs.TabPane tab="+" key={7}>
+                <div>
+                  <h3>Advanced customization</h3>
+                  <p>In rare cases, you might need these.</p>
+                  <h4>Can children display on several {isRowDirection ? 'lines' : 'columns'}?</h4>
+                  <div>
+                    <p>Select 'wrap' for multi {isRowDirection ? 'lines' : 'columns'}.</p>
+                    <p>In the next step you can combine 'wrap' with 'flex-basis: 100%;' to isolate a child on one {isRowDirection ? 'line' : 'column'}.</p>
+                  </div>
+                  <Radio.Group size="small" value={rootContainerProps.flexWrap} buttonStyle="solid" onChange={setRootContainerValue('flexWrap')}>
+                    <Radio.Button value="nowrap">nowrap</Radio.Button>
+                    <Radio.Button value="wrap">wrap</Radio.Button>
+                    <Radio.Button value="wrap-reverse">wrap-reverse</Radio.Button>
+                  </Radio.Group>
+                </div>
               </Tabs.TabPane>
             </Tabs>
           </Tabs.TabPane>
