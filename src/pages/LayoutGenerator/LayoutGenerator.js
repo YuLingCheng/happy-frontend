@@ -43,11 +43,12 @@ SyntaxHighlighter.registerLanguage('css', css);
 
 // Colored layers for container and children
 const rootContainerBg = 'rgba(252, 209, 67, 0.3)';
-const RootContainer = styled(Rnd)`
+const RootContainer = styled.div`
   background: ${rootContainerBg};
   position: relative;
-  z-index: 10;
   border: 3px solid ${highlightContainerColor};
+  width: 100%;
+  height: 100%;
 
   & :not(:last-child) {
     ${props => `margin-${props.margininfo.isRowDirection ? 'right' : 'bottom'}: ${props.margininfo.childrenMargin};`}
@@ -321,12 +322,12 @@ ${childrenList.map(id => {
   return (
   <MainContainer>
     <PreviewContainer mockupPreview={mockupPreview} id="preview-container">
-      { displayBlocks && <RootContainer style={rootContainerProps} margininfo={marginInfo} bounds="parent" default={{
+      { displayBlocks && <Rnd bounds="parent" style={{zIndex: 10}} default={{
         x: 20,
         y: 60,
         width: 150,
         height: 150,
-      }}>
+      }}><RootContainer style={rootContainerProps} margininfo={marginInfo} >
         {childrenList.map(id => (
           <Child
             key={id}
@@ -335,7 +336,7 @@ ${childrenList.map(id => {
             {childrenContentMap[id]}
           </Child>)
         )}
-      </RootContainer>}
+      </RootContainer></Rnd>}
       {!mockupPreview && <Helper highlight={highlightExampleBlocks}>
           <ExampleHeader highlight={highlightExampleBlocks}>
               <div style={{display: 'flex', alignItems: 'center'}}>
