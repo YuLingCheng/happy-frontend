@@ -1,4 +1,5 @@
 import _isEqual from 'lodash/isEqual';
+import _omit from 'lodash/omit';
 import _range from 'lodash/range';
 import React, { useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -87,6 +88,7 @@ const LayoutGenerator = () => {
     flexGrow: '0',
     flexShrink: '1',
     alignSelf: 'auto',
+    position: 'static',
   };
   const changeChildrenNb = (newNumber) => {
     setChildrenNb(prevNumber => {
@@ -175,11 +177,16 @@ ${marginInfo.childrenMargin !== '0' ? `.container :not(:last-child) {
 ${childrenList.map(id => {
   const childProperties = getChildProperties(id);
   const childFlexProperties = getChildFlexProp(childProperties);
-  if (_isEqual(childProperties, initialChildProps)) return undefined;
+  if (_isEqual(_omit(childProperties, ['top', 'left', 'right', 'bottom']), initialChildProps)) return undefined;
   return `.child${id} {
     ${[
       getChildFlexProp(initialChildProps) !== childFlexProperties ? `flex: ${childFlexProperties};` : undefined,
-      childProperties.alignSelf !== initialChildProps.alignSelf ? `align-self: ${childProperties.alignSelf};`: undefined
+      childProperties.alignSelf !== initialChildProps.alignSelf ? `align-self: ${childProperties.alignSelf};`: undefined,
+      childProperties.position !== initialChildProps.position ? `position: ${childProperties.position};`: undefined,
+      childProperties.top ? `top: ${childProperties.top};`: undefined,
+      childProperties.left ? `left: ${childProperties.left};`: undefined,
+      childProperties.right ? `right: ${childProperties.right};`: undefined,
+      childProperties.bottom ? `bottom: ${childProperties.bottom};`: undefined,
     ].filter(Boolean).join('\n    ')}
 }`}).filter(Boolean).join('\n')}`);
   }
@@ -480,7 +487,7 @@ ${childrenList.map(id => {
                       <Collapse.Panel header={<span><Icon type="build" theme="filled" style={{color: childBaseColor, filter: getChildColor(id)}} /> Child {id}</span>} key={id}>
                         <Tabs size="small">
                           <Tabs.TabPane tab="Size" key={1}>
-                            <Divider orientation="left" style={{marginTop: 0}}>Specific {isRowDirection ? 'width' : 'height'}:</Divider>
+                            <Divider orientation="left" style={{marginTop: 0}}><b>Specific {isRowDirection ? 'width' : 'height'}</b>:</Divider>
                             <Row gutter={8}>
                               <Col span={20}>
                                 <Input addonBefore="flex-basis:" size="small" value={childrenPropsMap[id] && childrenPropsMap[id].flexBasis} onChange={setChildProp(id)('flexBasis')}/>
@@ -490,13 +497,13 @@ ${childrenList.map(id => {
                                 Set flex-shrink to 0 if fixed size, > 0 if it should shrink when not enough space
                               </Col>
                             </Row>
-                            <Divider orientation="left">Take available space {isRowDirection ? 'horizontally' : 'vertically'}:</Divider>
+                            <Divider orientation="left"><b>Take available space {isRowDirection ? 'horizontally' : 'vertically'}</b>:</Divider>
                             <Row gutter={8}>
                               <Col span={22}>
                                 <Input addonBefore="flex-grow:" size="small" value={childrenPropsMap[id] && childrenPropsMap[id].flexGrow} onChange={setChildProp(id)('flexGrow')}/>
                               </Col>
                             </Row>
-                            <Divider orientation="left">Take the size of its content:</Divider>
+                            <Divider orientation="left"><b>Take the size of its content</b>:</Divider>
                             <p>Simulate content in the child (text only)</p>
                             <TextArea
                               value={childrenContentMap[id]}
@@ -511,7 +518,7 @@ ${childrenList.map(id => {
                             </Row>
                           </Tabs.TabPane>
                           <Tabs.TabPane tab="Advanced" key={2}>
-                            <h4>Does this child have a {isRowDirection ? 'vertical' : 'horizontal'} position that's different from it's siblings?</h4>
+                            <h4>Does this child have a <b>{isRowDirection ? 'vertical' : 'horizontal'} position</b> that's different from it's siblings?</h4>
                             <p>Use align-self to define it:</p>
                             <Radio.Group size="small" value={childrenPropsMap[id] && childrenPropsMap[id].alignSelf} buttonStyle="solid" onChange={setChildProp(id)('alignSelf')}>
                               <Radio.Button value="auto">auto</Radio.Button>
@@ -521,6 +528,22 @@ ${childrenList.map(id => {
                               <Radio.Button value="baseline">baseline</Radio.Button>
                               <Radio.Button value="stretch">stretch</Radio.Button>
                             </Radio.Group>
+                            <br/>
+                            <Divider orientation="left"><b>Absolute position</b>:</Divider>
+                            <p>Is the child at a specific position relatively to the container? If yes, set its position to "absolute"</p>
+                            <p>If the child has a spacific position relatively to the window and not its container, set the position to "fixed"</p>
+                            <Radio.Group size="small" value={childrenPropsMap[id] && childrenPropsMap[id].position} buttonStyle="solid" onChange={setChildProp(id)('position')}>
+                              <Radio.Button value="static">static</Radio.Button>
+                              <Radio.Button value="absolute">absolute</Radio.Button>
+                              <Radio.Button value="fixed">fixed</Radio.Button>
+                              <Radio.Button value="relative">relative</Radio.Button>
+                            </Radio.Group>
+                            <Col span={12}>
+                              <Input addonBefore="top:" size="small" value={childrenPropsMap[id] && childrenPropsMap[id].top} onChange={setChildProp(id)('top')}/>
+                              <Input addonBefore="left:" size="small" value={childrenPropsMap[id] && childrenPropsMap[id].left} onChange={setChildProp(id)('left')}/>
+                              <Input addonBefore="right:" size="small" value={childrenPropsMap[id] && childrenPropsMap[id].right} onChange={setChildProp(id)('right')}/>
+                              <Input addonBefore="bottom:" size="small" value={childrenPropsMap[id] && childrenPropsMap[id].bottom} onChange={setChildProp(id)('bottom')}/>
+                            </Col>
                           </Tabs.TabPane>
                         </Tabs>
                       </Collapse.Panel>
