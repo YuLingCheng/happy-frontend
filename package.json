@@ -9,6 +9,7 @@
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.7.0-alpha.2",
     "react-dropzone": "^10.1.0",
+    "react-ga": "^2.5.7",
     "react-icons": "^3.2.2",
     "react-rnd": "^9.1.2",
     "react-router": "^4.3.1",
