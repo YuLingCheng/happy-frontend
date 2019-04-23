@@ -63,7 +63,7 @@ export const getTutoMessageMap = (childBaseColor, rootContainerBg, highlightCont
     },
     5: {
       message: 'Step 5 : If a child has specific size in the container, define it',
-      description: (<p>
+      description: (<div>
         This is the step is where you'll need to infer the information from the mockup or ask the designer:
         <ul>
           <li>Is the height of the <span style={blueContainerStyle}>children</span> fixed to a px value or % of the space available?</li>
@@ -75,7 +75,7 @@ export const getTutoMessageMap = (childBaseColor, rootContainerBg, highlightCont
         <br />The other <span style={blueContainerStyle}>siblings</span> will take the size of their content, so leave the default values.
         <br />You can play around and enter some fancy content for them.
         <br /><br /> When you are done, click on the "Next" button.
-      </p>)
+      </div>)
     },
     6: {
       message: 'Step 6 : Finally, define the children position relatively to each other',

@@ -1,6 +1,9 @@
+import { createBrowserHistory } from "history";
 import React, { Component, Fragment } from "react";
+import ReactGA from 'react-ga';
 import { IconContext } from "react-icons";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Redirect } from "react-router";
+import { Router, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 
 import { Home, Identify } from "./pages";
@@ -12,10 +15,17 @@ import ExpertLayoutGenerator from "./pages/ExpertLayoutGenerator";
 
 import "antd/dist/antd.css";
 
+const history = createBrowserHistory();
+
+if (process.env.NODE_ENV === "production") {
+  ReactGA.initialize('UA-138978525-1');
+  history.listen(location => ReactGA.pageview(location.pathname));
+}
+
 const AppRouter = () => (
-  <Router>
+  <Router history={history}>
     <Fragment>
-      <Route path="/" exact component={LayoutGenerator} />
+      <Route path="/" exact render={() => (<Redirect to="/dev/learn" />)} />
       <Route path="/dev/learn" exact component={LayoutGenerator} />
       <Route path="/dev/advanced" exact component={ExpertLayoutGenerator} />
       {/* <Route path="/" exact component={Home} />

@@ -4,6 +4,7 @@ import _range from 'lodash/range';
 import React, { useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useDropzone } from 'react-dropzone';
+import ReactGA from 'react-ga';
 import { Rnd } from 'react-rnd';
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import css from 'react-syntax-highlighter/dist/esm/languages/hljs/css';
@@ -202,6 +203,10 @@ ${childrenList.map(id => {
           return 6;
         });
       }
+      ReactGA.event({
+        category: 'LayoutGenerator',
+        action: 'Display code'
+      });
       exportCode();
     }
     if (key === "1") {
@@ -254,6 +259,10 @@ ${childrenList.map(id => {
       });
     }
     exportCode(); setLayoutToolActiveKey('2');
+    ReactGA.event({
+      category: 'LayoutGenerator',
+      action: 'Done button click'
+    });
   }
 
   // ResetLayout
@@ -278,6 +287,10 @@ ${childrenList.map(id => {
     highlightChildColor
   );
   const stopTuto = () => {
+    ReactGA.event({
+      category: 'LayoutGenerator',
+      action: 'Stop Tuto'
+    });
     setDisplayBlocks(true);
     setTutoStep(null);
   };
@@ -293,6 +306,11 @@ ${childrenList.map(id => {
   });
   const updateNotification = (step, showNextButton = false) => {
     const tutoMessage = tutoMessageMap[step];
+    ReactGA.event({
+      category: 'LayoutGenerator',
+      action: 'Move Tuto step',
+      value: step,
+    });
     if (!tutoMessage) {
       notification.success({
         ...defaultNotificationOptions,
@@ -310,6 +328,10 @@ ${childrenList.map(id => {
     });
   };
   const initTuto = () => {
+    ReactGA.event({
+      category: 'LayoutGenerator',
+      action: 'Init Tuto'
+    });
     setDisplayBlocks(false);
     const btn = <Button onClick={() => {updateNotification(1);setDisplayBlocks(true);}}>Next</Button>;
     if (tutoStep === null) {
