@@ -52,7 +52,7 @@ const RootContainer = styled.div`
   width: 100%;
   height: 100%;
 
-  & :not(:last-child) {
+  & > :not(:last-child) {
     ${props => `margin-${props.margininfo.isRowDirection ? 'right' : 'bottom'}: ${props.margininfo.childrenMargin};`}
   }
 `;
