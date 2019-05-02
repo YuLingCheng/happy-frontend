@@ -404,12 +404,11 @@ ${childrenList.map(id => {
               </div>
             </Helper.KeyPoints>
             <Helper.Content>
-              <div {...getRootProps({className: 'dropzone'})}>
-                <input {...getInputProps()} />
-                  <h2>How to</h2>
-                  <p>Two options :</p>
-                  <p>1. Follow the tutorial "<Icon type="caret-right"/> Walk me through!"</p>
-                  <p>2. Import an screenshot of your mockup using drag and drop here <Icon type="upload" /></p>
+              <div className="helper-text">
+              <h2>How to</h2>
+              <p>Two options :</p>
+              <p>1. Follow the tutorial "<Icon type="caret-right"/> Walk me through!"</p>
+              <p>2. Import an screenshot of your mockup using the "<Icon type="upload" /> Load Mockup" button and follow the steps on the right</p>
               </div>
             </Helper.Content>
           </ExampleMain>

@@ -88,13 +88,11 @@ Helper.Content = styled.div`
     font-weight: bold;
   }
 
-  .dropzone {
+  .helper-text {
     border: 1px dashed ${mainColor};
     background-color: rgb(20, 86, 120, 0.05);
     width: 40vw;
     padding: 20px;
-    outline: none;
-    cursor: pointer;
   }
 `
 
