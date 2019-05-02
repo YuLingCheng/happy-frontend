@@ -174,7 +174,7 @@ const LayoutGenerator = () => {
     rootContainerProps.flexWrap !== initialRootContainerProps.flexWrap && `flex-wrap: ${rootContainerProps.flexWrap};`,
   ].filter(Boolean).join('\n    ')}
 }
-${marginInfo.childrenMargin !== '0' ? `.container :not(:last-child) {
+${marginInfo.childrenMargin !== '0' ? `.container > :not(:last-child) {
   margin-${isRowDirection ? 'right' : 'bottom'}: ${marginInfo.childrenMargin};
 }` : ''}
 ${childrenList.map(id => {
