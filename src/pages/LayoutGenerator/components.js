@@ -114,7 +114,7 @@ Helper.KeyPoints = styled.div`
   align-items: start;
   color: ${reverseColor};
   background-color: ${darkColor};
-  padding: 30px 40px;
+  padding: 40px;
   text-align: left;
   flex-wrap: wrap
   font-size: x-small;
@@ -127,7 +127,7 @@ Helper.KeyPoints = styled.div`
   }
 
   .keypoint {
-    flex: 1;
+    flex: 0 0 25%;
     display: flex;
 
     &:not(:last-child) {
@@ -136,7 +136,7 @@ Helper.KeyPoints = styled.div`
 
     i {
       font-size: 25px;
-      margin-right: 5px;
+      margin-right: 15px;
     }
   }
 `
@@ -147,7 +147,7 @@ export const ExampleHeader = styled.div`
   align-items: center;
   border-bottom: 2px solid ${mainColor};
   height: 45px;
-  padding: 0 10px;
+  padding: 0 25px;
   color: ${darkColor};
   font-family: 'Noto Sans TC', sans-serif;
   font-weight: bold;

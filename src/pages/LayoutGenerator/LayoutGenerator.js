@@ -379,7 +379,7 @@ ${childrenList.map(id => {
                 Happy frontend
               </div>
               <div>
-                <Icon type="home" /> Home <Icon type="question" /> About <Icon type="user" /> Login
+                <Icon type="home" /> Home <Icon type="question" style={{marginLeft: '15px'}} /> About <Icon type="user" style={{marginLeft: '15px'}} /> Login
               </div>
           </ExampleHeader>
           <ExampleMain highlight={highlightExampleBlocks}>
@@ -409,6 +409,7 @@ ${childrenList.map(id => {
               <p>Two options :</p>
               <p>1. Follow the tutorial "<Icon type="caret-right"/> Walk me through!"</p>
               <p>2. Import an screenshot of your mockup using the "<Icon type="upload" /> Load Mockup" button and follow the steps on the right</p>
+              <p>Refer to the <Icon type="question-circle" theme="filled" /> help section if you are lost</p>
               </div>
             </Helper.Content>
           </ExampleMain>
@@ -661,8 +662,8 @@ ${childrenList.map(id => {
             <Card type="inner" title="How to">
               <p>1. <Icon type="picture" /> Save your mockup as an image</p>
               <p>2. <Icon type="table" /> Map out the different blocks, <b>always start with the biggest root container</b> (You can print it and draw it if it helps)</p>
-              <p>3. Drag and drop a mockup here or click to upload <Icon type="upload" /></p>
-              <p>4. Shape the container <Icon type="project" theme="filled" style={{color: rootContainerBg}} /> and its children <Icon type="build" theme="filled" style={{color: childBaseColor}} /> to match the layout using the Layout Toolbox</p>
+              <p>3. Upload your image using the "<Icon type="upload" /> Load Mockup" button</p>
+              <p>4. Shape the container <Icon type="project" theme="filled" style={{color: rootContainerBg}} /> and its children <Icon type="build" theme="filled" style={{color: childBaseColor}} /> to match the layout by followig the steps in the "Shape" tab</p>
               <p>5. Export the code <Icon type="code" theme="filled" /> to use it on your project</p>
               <p>6. <Icon type="sync" /> Repeat the exercice recusrively.</p>
               </Card>
