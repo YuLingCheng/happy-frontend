@@ -148,10 +148,7 @@ export const AnimatedButton = styled.button`
   box-shadow: rgba(0, 0, 0, 0.043) 0px 2px 0px 0px;
   box-sizing: border-box;
   cursor: pointer;
-  font-family: -apple-system, system-ui, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
-    'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol';
-  font-size: medium;
+  font-family: ${fontFamily.main};
   font-stretch: 100%;
   font-weight: 400;
   height: 32px;

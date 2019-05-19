@@ -10,6 +10,7 @@ import LayoutGenerator from './pages/LayoutGenerator';
 import ExpertLayoutGenerator from './pages/ExpertLayoutGenerator';
 
 import 'antd/dist/antd.css';
+import './assets/css/index.css'; // import after to override
 
 const history = createBrowserHistory();
 
