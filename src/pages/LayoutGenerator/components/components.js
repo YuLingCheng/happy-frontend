@@ -61,7 +61,7 @@ export const ToolContainer = styled.div`
     padding-top: 0;
   }
   .ant-divider-horizontal.ant-divider-with-text-left {
-    font-size: 14px;
+    font-size: medium;
     margin-bottom: 10px;
   }
 `;
@@ -151,7 +151,7 @@ export const AnimatedButton = styled.button`
   font-family: -apple-system, system-ui, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
     'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol';
-  font-size: 14px;
+  font-size: medium;
   font-stretch: 100%;
   font-weight: 400;
   height: 32px;
