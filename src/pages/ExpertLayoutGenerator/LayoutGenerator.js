@@ -33,7 +33,7 @@ import {
   Tip,
   ToolContainer,
 } from './components';
-import Cup from '../../assets/decorations/Cup';
+import logo from '../../assets/images/happyfrontend-logo.png';
 import { getTutoMessageMap } from './tutorialMessages';
 
 SyntaxHighlighter.registerLanguage('css', css);
@@ -235,9 +235,7 @@ ${childrenList.map(id => {
       {!mockupPreview && <Helper highlight={highlightExampleBlocks}>
           <ExampleHeader highlight={highlightExampleBlocks}>
               <div style={{display: 'flex', alignItems: 'center'}}>
-                <Cup.Icon cupSize="32" sizeUnit="px" top="-3px">
-                  <Cup.Handle cupSize="32" sizeUnit="px" />
-                </Cup.Icon>
+                <img src={logo} alt="Happyfrontend logo" width="32" />
                 Happy frontend
               </div>
               <div>

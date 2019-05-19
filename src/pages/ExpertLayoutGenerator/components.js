@@ -57,7 +57,7 @@ export const ToolContainer = styled.div`
     padding-top: 0;
   }
   .ant-divider-horizontal.ant-divider-with-text-left {
-    font-size: 14px;
+    font-size: medium;
     margin-bottom: 10px;
   }
 `

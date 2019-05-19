@@ -1,75 +1,62 @@
-import { createBrowserHistory } from "history";
-import React, { Component, Fragment } from "react";
+import { createBrowserHistory } from 'history'; // eslint-disable-line
+import React from 'react';
 import ReactGA from 'react-ga';
-import { IconContext } from "react-icons";
-import { Redirect } from "react-router";
-import { Router, Route } from "react-router-dom";
-import { ThemeProvider } from "styled-components";
+import { IconContext } from 'react-icons';
+import { Redirect } from 'react-router';
+import { Router, Route } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
 
-import { Home, Identify } from "./pages";
-import EdgeCases from "./pages/EdgeCases";
-import Assets from "./pages/Assets";
-import Responsive from "./pages/Responsive";
-import LayoutGenerator from "./pages/LayoutGenerator";
-import ExpertLayoutGenerator from "./pages/ExpertLayoutGenerator";
+import LayoutGenerator from './pages/LayoutGenerator';
+import ExpertLayoutGenerator from './pages/ExpertLayoutGenerator';
 
-import "antd/dist/antd.css";
+import 'antd/dist/antd.css';
+import './assets/css/index.css'; // import after to override
 
 const history = createBrowserHistory();
 
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === 'production') {
   ReactGA.initialize('UA-138978525-1');
   history.listen(location => ReactGA.pageview(location.pathname));
 }
 
 const AppRouter = () => (
   <Router history={history}>
-    <Fragment>
-      <Route path="/" exact render={() => (<Redirect to="/dev/learn" />)} />
+    <>
+      <Route path="/" exact render={() => <Redirect to="/dev/learn" />} />
       <Route path="/dev/learn" exact component={LayoutGenerator} />
       <Route path="/dev/advanced" exact component={ExpertLayoutGenerator} />
-      {/* <Route path="/" exact component={Home} />
-      <Route path="/identify-layouts-components" exact component={Identify} />
-      <Route path="/edge-cases" exact component={EdgeCases} />
-      <Route path="/assets" exact component={Assets} />
-      <Route path="/responsive" exact component={Responsive} />
-      <Route path="/flexbox" exact component={LayoutGenerator} /> */}
-    </Fragment>
+    </>
   </Router>
 );
 
 const theme = {
   colors: {
-    primary: "#f6b93b",
-    primary_dark: "#fa983a",
-    primary_light: "#d5a973",
-    mainBackground: "#e55039",
-    error: "#EF5B5B",
-    cocoa: "#4c3013",
-    lighter: "#dad2ca",
-    lightest: "#f8efe5",
-    lightest_transparent: "rgba(248,239,229, 0.75)",
-    grey_dark: "#3f3a36",
-    grey_light: "#A6B0B5",
-    grey_shadow: "rgba(102, 102, 102, 0.3)",
-    blue: "rgba(74, 105, 189, 1.0)",
-    blue_transparent: "rgba(74, 105, 189, 0.3)",
-    bottleGreen: "rgba(56, 173, 169,1.0)",
-    bottleGreen_transparent: "rgba(56, 173, 169, 0.3)",
-    green: "#78e08f",
-  }
+    primary: '#f6b93b',
+    primary_dark: '#fa983a',
+    primary_light: '#d5a973',
+    mainBackground: '#e55039',
+    error: '#EF5B5B',
+    cocoa: '#4c3013',
+    lighter: '#dad2ca',
+    lightest: '#f8efe5',
+    lightest_transparent: 'rgba(248,239,229, 0.75)',
+    grey_dark: '#3f3a36',
+    grey_light: '#A6B0B5',
+    grey_shadow: 'rgba(102, 102, 102, 0.3)',
+    blue: 'rgba(74, 105, 189, 1.0)',
+    blue_transparent: 'rgba(74, 105, 189, 0.3)',
+    bottleGreen: 'rgba(56, 173, 169,1.0)',
+    bottleGreen_transparent: 'rgba(56, 173, 169, 0.3)',
+    green: '#78e08f',
+  },
 };
 
-class App extends Component {
-  render() {
-    return (
-      <ThemeProvider theme={theme}>
-        <IconContext.Provider value={{ style: { verticalAlign: "middle" } }}>
-          <AppRouter />
-        </IconContext.Provider>
-      </ThemeProvider>
-    );
-  }
-}
+const App = () => (
+  <ThemeProvider theme={theme}>
+    <IconContext.Provider value={{ style: { verticalAlign: 'middle' } }}>
+      <AppRouter />
+    </IconContext.Provider>
+  </ThemeProvider>
+);
 
 export default App;
