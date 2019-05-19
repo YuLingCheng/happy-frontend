@@ -13,11 +13,11 @@ import {
 
 import LayoutToolbox from './components/LayoutToolbox';
 import Sandbox from './components/Sandbox';
+import getTutoMessageMap from './components/tutorialMessages';
 import logo from '../../assets/images/happyfrontend-logo.png';
 import exportCode from '../../services/codeGenerator';
 import { addOrRemoveChild, initialChildProps } from '../../services/childrenFactory';
 import { colorUsage } from '../../stylesheet';
-import getTutoMessageMap from './tutorialMessages';
 
 const {
   childBaseColor,

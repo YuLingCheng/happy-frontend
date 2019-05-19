@@ -1,6 +1,6 @@
 import Icon from 'antd/lib/icon';
 import React from 'react';
-import { Code } from './components/components';
+import { Code } from './components';
 
 const getTutoMessageMap = (
   childBaseColor,
