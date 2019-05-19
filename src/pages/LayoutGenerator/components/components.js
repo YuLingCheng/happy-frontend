@@ -20,8 +20,9 @@ export const PreviewContainer = styled.div`
 `;
 export const ToolContainer = styled.div`
   flex: 0 0 35%;
+  height: 96%;
   background: ${colorUsage.white};
-  border-radius: 4px 0 0 4px;
+  border-radius: 0 0 0 4px;
   overflow: auto;
   min-width: 358px;
 
@@ -34,7 +35,7 @@ export const ToolContainer = styled.div`
     padding: 0 15px;
   }
   .ant-card-head-title {
-    padding: 15px 0;
+    padding: 10px 0 5px;
   }
   .ant-card-type-inner .ant-card-head {
     min-height: 20px;

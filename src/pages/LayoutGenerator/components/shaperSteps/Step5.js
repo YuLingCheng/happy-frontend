@@ -22,6 +22,7 @@ const Step5 = ({
   <>
     <div>
       <h3>Adjust the size and placement of each child</h3>
+      {childrenList.length === 0 && <p>Go back to Step 2 to add children blocks</p>}
       <Collapse defaultActiveKey={['1']} accordion>
         {childrenList.map(id => (
           <Collapse.Panel
