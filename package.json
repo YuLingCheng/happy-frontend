@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "antd": "^3.16.1",
-    "lodash": "^4.17.11",
+    "antd": "3.16.1",
+    "lodash": "^4.17.13",
     "react": "^16.7.0-alpha.2",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.7.0-alpha.2",
@@ -23,6 +23,7 @@
     "start": "PORT=3008 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "analyze": "react-app-rewired build --analyze-bundle",
     "eject": "react-scripts eject",
     "now-build": "react-scripts build && mv build dist"
   },
@@ -35,6 +36,13 @@
   "devDependencies": {
     "eslint-config-airbnb-base": "13.1.0",
     "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-react-hooks": "^0.0.0"
+    "eslint-plugin-react-hooks": "^0.0.0",
+    "react-app-rewire-webpack-bundle-analyzer": "^1.0.1",
+    "react-app-rewired": "^2.1.3"
+  },
+  "resolutions": {
+    "handlebars": "^4.0.14",
+    "js-yaml": "^3.13.1",
+    "lodash.template": "^4.5.0"
   }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import { Icon, Popover } from 'antd';
+import Icon from 'antd/lib/icon';
+import Popover from 'antd/lib/popover';
 import { colorUsage, fontFamily } from '../../../stylesheet';
 
 export const MainContainer = styled.div`
@@ -42,7 +43,7 @@ export const ToolContainer = styled.div`
   }
   .ant-card-type-inner .ant-card-head-title {
     padding: 5px;
-    colorUsage.white-space: normal;
+    colorusage.white-space: normal;
     line-height: 15px;
   }
   .ant-card-type-inner .ant-card-head {

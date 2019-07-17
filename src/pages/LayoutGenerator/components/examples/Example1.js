@@ -1,4 +1,4 @@
-import { Icon } from 'antd';
+import Icon from 'antd/lib/icon';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -67,11 +67,7 @@ const KeyPoints = styled.div`
 const Example1 = ({ highlightExampleBlocks }) => (
   <>
     <Example1Container highlight={highlightExampleBlocks}>
-      <Img
-        src={example1}
-        alt="Learn CSS Layout"
-        highlight={highlightExampleBlocks}
-      />
+      <Img src={example1} alt="Learn CSS Layout" highlight={highlightExampleBlocks} />
       <Text highlight={highlightExampleBlocks}>
         <h2>First example</h2>
         <p>If you know how to do the layout for this block, then you know the basics :)</p>

@@ -1,7 +1,9 @@
 import _range from 'lodash/range';
 import React, { useState } from 'react';
 import ReactGA from 'react-ga';
-import { Button, Icon, notification } from 'antd';
+import Button from 'antd/lib/button';
+import Icon from 'antd/lib/icon';
+import notification from 'antd/lib/notification';
 import {
   AnimatedButton,
   Header,

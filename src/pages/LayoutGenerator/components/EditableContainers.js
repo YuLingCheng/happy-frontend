@@ -1,4 +1,5 @@
-import { Icon, Tooltip } from 'antd';
+import Icon from 'antd/lib/icon';
+import Tooltip from 'antd/lib/tooltip';
 import React from 'react';
 import { Rnd } from 'react-rnd';
 import styled, { css } from 'styled-components';
@@ -16,11 +17,19 @@ const RootContainer = styled.div`
   height: 100%;
 
   & > :not(:last-child) {
-    ${props => `margin-${props.margininfo.isRowDirection ? 'right' : 'bottom'}: ${props.margininfo.childrenMargin};`}
+    ${props => `margin-${props.margininfo.isRowDirection ? 'right' : 'bottom'}: ${
+    props.margininfo.childrenMargin
+  };`}
   }
 
-  ${props => props.displayCTA && css`-webkit-animation: ${heartbeatAnimation} 2s ease-in-out infinite both;`}
-  ${props => props.displayCTA && css`animation: ${heartbeatAnimation} 2s ease-in-out infinite both;`}
+  ${props => props.displayCTA
+    && css`
+      -webkit-animation: ${heartbeatAnimation} 2s ease-in-out infinite both;
+    `}
+  ${props => props.displayCTA
+    && css`
+      animation: ${heartbeatAnimation} 2s ease-in-out infinite both;
+    `}
 `;
 const Child = styled.div`
   background: ${childBaseColor};
@@ -41,14 +50,14 @@ const EditableContainers = ({
     visible={animateElements}
     title={
       <span>
-        Drag me <Icon type='arrows-alt' />, move me <Icon type='drag' /> to
-        cover the block you want to integrate
+        Drag me <Icon type="arrows-alt" />, move me <Icon type="drag" /> to cover the block you want
+        to integrate
       </span>
     }
-    placement='right'
+    placement="right"
   >
     <Rnd
-      bounds='parent'
+      bounds="parent"
       style={{ zIndex: 10 }}
       default={{
         x: 30,
