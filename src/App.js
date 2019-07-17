@@ -9,7 +9,7 @@ import { ThemeProvider } from 'styled-components';
 import LayoutGenerator from './pages/LayoutGenerator';
 import ExpertLayoutGenerator from './pages/ExpertLayoutGenerator';
 
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 import './assets/css/index.css'; // import after to override
 
 const history = createBrowserHistory();
