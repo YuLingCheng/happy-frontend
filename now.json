@@ -9,6 +9,7 @@
     { "src": "/favicon.png", "dest": "/favicon.ico" },
     { "src": "/favicon-192.png", "dest": "/favicon-192.png" },
     { "src": "/favicon-512.png", "dest": "/favicon-512.png" },
+    { "src": "/manifest.json", "dest": "/manifest.json" },
     { "src": "/service-worker.js", "dest": "/service-worker.js" },
     { "src": ".*", "dest": "/index.html" }
   ]
