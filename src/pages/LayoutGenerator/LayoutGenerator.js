@@ -310,7 +310,7 @@ const LayoutGenerator = () => {
           <Intro>
             <p>
               Learn how to integrate your mockup's layout by using the panel on the right. Follow
-              the 6 steps!
+              the 6 steps! Become at ease with size, padding, margin and flex properties.
               <br />
               Train on the examples below or upload your own mockup.
             </p>
