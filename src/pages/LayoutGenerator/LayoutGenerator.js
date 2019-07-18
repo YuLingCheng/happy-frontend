@@ -1,7 +1,9 @@
 import _range from 'lodash/range';
 import React, { useState } from 'react';
 import ReactGA from 'react-ga';
-import { Button, Icon, notification } from 'antd';
+import Button from 'antd/lib/button';
+import Icon from 'antd/lib/icon';
+import notification from 'antd/lib/notification';
 import {
   AnimatedButton,
   Header,
@@ -310,7 +312,7 @@ const LayoutGenerator = () => {
           <Intro>
             <p>
               Learn how to integrate your mockup's layout by using the panel on the right. Follow
-              the 6 steps!
+              the 6 steps! Become at ease with size, padding, margin and flex properties.
               <br />
               Train on the examples below or upload your own mockup.
             </p>

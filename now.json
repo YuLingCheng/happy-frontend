@@ -3,12 +3,20 @@
   "name": "Happy Frontend",
   "alias": ["happyfrontend"],
   "regions": ["bru1"],
-  "builds": [
-    { "src": "package.json", "use": "@now/static-build" }
-  ],
+  "builds": [{ "src": "package.json", "use": "@now/static-build" }],
   "routes": [
-    {"src": "^/static/(.*)", "dest": "/static/$1"},
-    {"src": "/favicon.png", "dest": "/favicon.ico"},
-    {"src": ".*", "dest": "/index.html"}
+    { "src": "^/static/(.*)", "dest": "/static/$1" },
+    { "src": "^/favicon.png", "dest": "/favicon.ico" },
+    { "src": "^/favicon-192.png", "dest": "/favicon-192.png" },
+    { "src": "^/favicon-512.png", "dest": "/favicon-512.png" },
+    { "src": "^/asset-manifest.json", "dest": "/asset-manifest.json" },
+    { "src": "^/manifest.json", "dest": "/manifest.json" },
+    {
+      "src": "^/service-worker.js",
+      "headers": { "cache-control": "s-maxage=0" },
+      "dest": "/service-worker.js"
+    },
+    { "src": "^/precache-manifest.(.*)", "dest": "/precache-manifest.$1" },
+    { "src": ".*", "dest": "/index.html" }
   ]
 }

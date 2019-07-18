@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import { Icon, Popover } from 'antd';
+import Icon from 'antd/lib/icon';
+import Popover from 'antd/lib/popover';
 import { colorUsage, fontFamily } from '../../../stylesheet';
 
 export const MainContainer = styled.div`
@@ -42,7 +43,7 @@ export const ToolContainer = styled.div`
   }
   .ant-card-type-inner .ant-card-head-title {
     padding: 5px;
-    colorUsage.white-space: normal;
+    colorusage.white-space: normal;
     line-height: 15px;
   }
   .ant-card-type-inner .ant-card-head {
@@ -93,7 +94,7 @@ export const Header = styled.div`
   align-items: center;
   height: 75px;
   flex-shrink: 0;
-  padding: 0 25px;
+  padding: 0 5%;
   color: ${colorUsage.reverseColor};
   font-family: ${fontFamily.main};
   font-weight: bold;
@@ -101,6 +102,7 @@ export const Header = styled.div`
     color: ${colorUsage.reverseColor};
     font-size: medium;
     font-weight: bold;
+    margin: 0;
   }
 `;
 
@@ -108,9 +110,9 @@ Header.Left = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 170px;
   img {
     width: 32px;
+    margin-right: 10px;
   }
 `;
 
@@ -154,7 +156,7 @@ export const AnimatedButton = styled.button`
   height: 32px;
   line-height: 21px;
   outline: none;
-  padding: 0 15px;
+  padding: 4px 15px;
 `;
 
 export const Code = styled.code`

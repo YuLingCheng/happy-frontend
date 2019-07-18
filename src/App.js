@@ -1,16 +1,16 @@
 import { createBrowserHistory } from 'history'; // eslint-disable-line
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import ReactGA from 'react-ga';
 import { IconContext } from 'react-icons';
 import { Redirect } from 'react-router';
 import { Router, Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
-import LayoutGenerator from './pages/LayoutGenerator';
-import ExpertLayoutGenerator from './pages/ExpertLayoutGenerator';
-
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 import './assets/css/index.css'; // import after to override
+
+const LayoutGenerator = lazy(() => import('./pages/LayoutGenerator'));
+const ExpertLayoutGenerator = lazy(() => import('./pages/ExpertLayoutGenerator'));
 
 const history = createBrowserHistory();
 
@@ -21,11 +21,11 @@ if (process.env.NODE_ENV === 'production') {
 
 const AppRouter = () => (
   <Router history={history}>
-    <>
+    <Suspense fallback={null}>
       <Route path="/" exact render={() => <Redirect to="/dev/learn" />} />
       <Route path="/dev/learn" exact component={LayoutGenerator} />
       <Route path="/dev/advanced" exact component={ExpertLayoutGenerator} />
-    </>
+    </Suspense>
   </Router>
 );
 
