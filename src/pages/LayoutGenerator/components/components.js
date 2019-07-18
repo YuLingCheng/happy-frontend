@@ -94,7 +94,7 @@ export const Header = styled.div`
   align-items: center;
   height: 75px;
   flex-shrink: 0;
-  padding: 0 25px;
+  padding: 0 5%;
   color: ${colorUsage.reverseColor};
   font-family: ${fontFamily.main};
   font-weight: bold;
@@ -102,6 +102,7 @@ export const Header = styled.div`
     color: ${colorUsage.reverseColor};
     font-size: medium;
     font-weight: bold;
+    margin: 0;
   }
 `;
 
@@ -109,9 +110,9 @@ Header.Left = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 170px;
   img {
     width: 32px;
+    margin-right: 10px;
   }
 `;
 
@@ -155,7 +156,7 @@ export const AnimatedButton = styled.button`
   height: 32px;
   line-height: 21px;
   outline: none;
-  padding: 0 15px;
+  padding: 4px 15px;
 `;
 
 export const Code = styled.code`

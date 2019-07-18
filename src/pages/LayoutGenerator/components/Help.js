@@ -2,18 +2,28 @@ import Button from 'antd/lib/button';
 import Card from 'antd/lib/card';
 import Icon from 'antd/lib/icon';
 import React from 'react';
+import styled from 'styled-components';
 import { Clickable } from './components';
 import { colorUsage } from '../../../stylesheet';
 
+const Container = styled.div`
+  padding: 5px 15px;
+`;
+
 const Help = ({ initTuto, setExamplesActiveKey }) => (
-  <>
-    <h2>Happier frontend development</h2>
+  <Container>
+    <h3>&ldquo;Happier frontend development&rdquo;</h3>
     <p>Learn how to integrate your mockup's layout by using this tool.</p>
     <p>
       <Button type="primary" icon="caret-right" onClick={initTuto}>
         Walk me through!
       </Button>
     </p>
+    <p>With 6 easy steps, you'll learn:</p>
+    <ul>
+      <li>how to break down layout integration</li>
+      <li>which css property to use and when (margin vs padding, flex proparties...)</li>
+    </ul>
     <p>This will help you if :</p>
     <ul>
       <li>
@@ -52,7 +62,7 @@ const Help = ({ initTuto, setExamplesActiveKey }) => (
         6. <Icon type="sync" /> Repeat the exercice recusrively.
       </p>
     </Card>
-  </>
+  </Container>
 );
 
 export default Help;
