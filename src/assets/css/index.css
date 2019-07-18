@@ -8,6 +8,6 @@ body {
   font-family: Helvetiva, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f8efe5;
+  background-color: rgb(12, 58, 101);
   min-height: 100vh;
 }
