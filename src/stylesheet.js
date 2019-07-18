@@ -27,7 +27,7 @@ export const colorUsage = {
 };
 
 export const fontFamily = {
-  main: `'Noto Sans TC', sans-serif`, // eslint-disable-line
+  main: `Helvetica, sans-serif`, // eslint-disable-line
   code: 'Monospace',
 };
 

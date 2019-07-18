@@ -20,7 +20,7 @@ export const PreviewContainer = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
   background-color: lightGrey;
-`
+`;
 export const ToolContainer = styled.div`
   flex: 0 0 35%;
   background: ${reverseColor};
@@ -60,7 +60,7 @@ export const ToolContainer = styled.div`
     font-size: medium;
     margin-bottom: 10px;
   }
-`
+`;
 
 export const Helper = styled.div`
   width: 65%;
@@ -72,14 +72,14 @@ export const Helper = styled.div`
   background-color: ${reverseColor};
 
   ${props => props.highlight && `border: solid 3px ${highlightContainerColor};`}
-`
+`;
 
 Helper.Content = styled.div`
   display: flex;
   justify-content: center;
   padding: 20px 0 30px;
   color: ${darkColor};
-  font-family: 'Noto Sans TC', sans-serif;
+  font-family: Helvetica, sans-serif;
   font-size: x-small;
 
   h2 {
@@ -96,7 +96,7 @@ Helper.Content = styled.div`
     outline: none;
     cursor: pointer;
   }
-`
+`;
 
 Helper.Intro = styled.div`
   padding: 30px 0 15px;
@@ -108,7 +108,7 @@ Helper.Intro = styled.div`
     font-size: medium;
     font-weight: bold;
   }
-`
+`;
 
 Helper.KeyPoints = styled.div`
   display: flex;
@@ -141,7 +141,7 @@ Helper.KeyPoints = styled.div`
       margin-right: 5px;
     }
   }
-`
+`;
 
 export const ExampleHeader = styled.div`
   display: flex;
@@ -151,11 +151,11 @@ export const ExampleHeader = styled.div`
   height: 45px;
   padding: 0 10px;
   color: ${darkColor};
-  font-family: 'Noto Sans TC', sans-serif;
+  font-family: Helvetica, sans-serif;
   font-weight: bold;
 
   ${props => props.highlight && `border: solid 3px ${highlightChildColor};`}
-`
+`;
 export const ExampleMain = styled.div`
   ${props => props.highlight && `border: solid 3px ${highlightChildColor};`}
 `;
@@ -165,31 +165,37 @@ export const ExampleFooter = styled.div`
   padding: 20px;
   text-align: center;
   color: ${darkColor};
-  font-family: 'Noto Sans TC', sans-serif;
+  font-family: Helvetica, sans-serif;
   font-size: x-small;
 
   ${props => props.highlight && `border: solid 3px ${highlightChildColor};`}
-`
+`;
 
 export const HighlightableChild = styled.div`
   ${props => props.highlight && `border: solid 3px ${highlightChildColor};`}
-`
+`;
 export const HighlightableContainer = styled.div`
   ${props => props.highlight && `border: solid 1px ${highlightContainerColor};`}
-`
+`;
 
-export const PageHeader = ({getRootProps, getInputProps}) => (
-  <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-    <span><Icon type="layout" theme="filled" /> Layout Toolbox</span>
-    <div style={{display: 'flex', alignItems: 'center'}}>
-      <div {...getRootProps({className: 'dropzone'})}>
+export const PageHeader = ({ getRootProps, getInputProps }) => (
+  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <span>
+      <Icon type="layout" theme="filled" /> Layout Toolbox
+    </span>
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div {...getRootProps({ className: 'dropzone' })}>
         <input {...getInputProps()} />
-        <Button type="primary" icon="upload" ghost size="small">Load Mockup</Button>
+        <Button type="primary" icon="upload" ghost size="small">
+          Load Mockup
+        </Button>
       </div>
     </div>
   </div>
 );
 
-export const Tip = ({title, content}) => (
-  <Popover title={title} content={content}><Icon type="question-circle" theme="filled" /></Popover>
+export const Tip = ({ title, content }) => (
+  <Popover title={title} content={content}>
+    <Icon type="question-circle" theme="filled" />
+  </Popover>
 );
