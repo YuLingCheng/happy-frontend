@@ -3,6 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import Icon from 'antd/lib/icon';
 import Popover from 'antd/lib/popover';
 import { colorUsage, fontFamily } from '../../../stylesheet';
+import logo from '../../../assets/images/happyfrontend-logo.png';
 
 export const MainContainer = styled.div`
   width: 100%;
@@ -165,3 +166,40 @@ export const Code = styled.code`
   font-family: Monospace;
   padding: 4px;
 `;
+
+const rotation = keyframes`
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+  }
+`;
+
+const CenteredOverlay = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: ${colorUsage.white};
+  text-align: center;
+  p {
+    margin-top: 10px;
+  }
+`;
+const SpiningLogo = styled.img`
+  width: 40px;
+  height: 40px;
+  -webkit-animation: ${rotation} 2s infinite linear;
+  animation: ${rotation} 2s infinite linear;
+`;
+
+export const Loader = ({ text, children }) => (
+  <CenteredOverlay>
+    <SpiningLogo src={logo} alt="Loading..." />
+    {text && <p>{text}</p>}
+    {children}
+  </CenteredOverlay>
+);

@@ -9,6 +9,8 @@ import { ThemeProvider } from 'styled-components';
 import 'antd/dist/antd.min.css';
 import './assets/css/index.css'; // import after to override
 
+import { Loader } from './pages/LayoutGenerator/components/components';
+
 const LayoutGenerator = lazy(() => import('./pages/LayoutGenerator'));
 const ExpertLayoutGenerator = lazy(() => import('./pages/ExpertLayoutGenerator'));
 
@@ -21,7 +23,16 @@ if (process.env.NODE_ENV === 'production') {
 
 const AppRouter = () => (
   <Router history={history}>
-    <Suspense fallback={null}>
+    <Suspense
+      fallback={
+        <Loader>
+          <p>
+            Happy Frontend is loading... <br />
+            Getting ready to help you learn how to integrate layouts on your mockups.
+          </p>
+        </Loader>
+      }
+    >
       <Route path="/" exact render={() => <Redirect to="/dev/learn" />} />
       <Route path="/dev/learn" exact component={LayoutGenerator} />
       <Route path="/dev/advanced" exact component={ExpertLayoutGenerator} />

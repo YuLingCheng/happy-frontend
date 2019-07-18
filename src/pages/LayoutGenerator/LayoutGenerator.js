@@ -1,5 +1,5 @@
 import _range from 'lodash/range';
-import React, { useState } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import ReactGA from 'react-ga';
 import Button from 'antd/lib/button';
 import Icon from 'antd/lib/icon';
@@ -11,15 +11,17 @@ import {
   MainContent,
   MainContainer,
   PreviewContainer,
+  ToolContainer,
+  Loader,
 } from './components/components';
-
-import LayoutToolbox from './components/LayoutToolbox';
-import Sandbox from './components/Sandbox';
 import getTutoMessageMap from './components/tutorialMessages';
 import logo from '../../assets/images/happyfrontend-logo.png';
 import exportCode from '../../services/codeGenerator';
 import { addOrRemoveChild, initialChildProps } from '../../services/childrenFactory';
 import { colorUsage } from '../../stylesheet';
+
+const LayoutToolbox = lazy(() => import('./components/LayoutToolbox'));
+const Sandbox = lazy(() => import('./components/Sandbox'));
 
 const {
   childBaseColor,
@@ -67,11 +69,7 @@ const LayoutGenerator = () => {
     ...prev,
     [id]: target.value,
   }));
-  const changeChildrenNb = addOrRemoveChild(
-    setChildrenNb,
-    setChildPropsMap,
-    setChildContentMap,
-  );
+  const changeChildrenNb = addOrRemoveChild(setChildrenNb, setChildPropsMap, setChildContentMap);
 
   // Initialize the margin between children
   const [childrenMargin, setChildrenMargin] = useState('0');
@@ -317,49 +315,61 @@ const LayoutGenerator = () => {
               Train on the examples below or upload your own mockup.
             </p>
           </Intro>
-          <Sandbox
-            displayBlocks={displayBlocks}
-            animateElements={animateElements}
-            childrenContentMap={childrenContentMap}
-            childrenList={childrenList}
-            childrenPropsMap={childrenPropsMap}
-            disableElementsAnimation={disableElementsAnimation}
-            marginInfo={marginInfo}
-            rootContainerProps={rootContainerProps}
-            examplesActiveKey={examplesActiveKey}
-            setExamplesActiveKey={setExamplesActiveKey}
-            highlightExampleBlocks={highlightExampleBlocks}
-          />
+          <Suspense fallback={<Loader text="Loading Sandbox..." />}>
+            <Sandbox
+              displayBlocks={displayBlocks}
+              animateElements={animateElements}
+              childrenContentMap={childrenContentMap}
+              childrenList={childrenList}
+              childrenPropsMap={childrenPropsMap}
+              disableElementsAnimation={disableElementsAnimation}
+              marginInfo={marginInfo}
+              rootContainerProps={rootContainerProps}
+              examplesActiveKey={examplesActiveKey}
+              setExamplesActiveKey={setExamplesActiveKey}
+              highlightExampleBlocks={highlightExampleBlocks}
+            />
+          </Suspense>
         </MainContent>
       </PreviewContainer>
-      <LayoutToolbox
-        layoutToolActiveKey={layoutToolActiveKey}
-        setLayoutToolActiveKey={setLayoutToolActiveKey}
-        manageTabs={manageTabs}
-        resetLayout={resetLayout}
-        shaperActiveKey={shaperActiveKey}
-        onStepClick={onStepClick}
-        animate1stNextButton={animate1stNextButton}
-        onNextStepButtonClick={onNextStepButtonClick}
-        childrenNb={childrenNb}
-        changeChildrenNb={changeChildrenNb}
-        rootContainerProps={rootContainerProps}
-        setRootContainerValue={setRootContainerValue}
-        isRowDirection={isRowDirection}
-        childrenContentMap={childrenContentMap}
-        setChildContent={setChildContent}
-        childrenList={childrenList}
-        childrenPropsMap={childrenPropsMap}
-        setChildProp={setChildProp}
-        getChildFlexProp={getChildFlexProp}
-        getChildProperties={getChildProperties}
-        childrenMargin={childrenMargin}
-        setChildrenMarginValue={setChildrenMarginValue}
-        onDoneButtonClick={onDoneButtonClick}
-        codeString={codeString}
-        initTuto={initTuto}
-        setExamplesActiveKey={setExamplesActiveKey}
-      />
+      <ToolContainer>
+        <Suspense
+          fallback={
+            <Loader>
+              <p style={{ color: colorUsage.mainColor }}>Loading Toolbox...</p>
+            </Loader>
+          }
+        >
+          <LayoutToolbox
+            layoutToolActiveKey={layoutToolActiveKey}
+            setLayoutToolActiveKey={setLayoutToolActiveKey}
+            manageTabs={manageTabs}
+            resetLayout={resetLayout}
+            shaperActiveKey={shaperActiveKey}
+            onStepClick={onStepClick}
+            animate1stNextButton={animate1stNextButton}
+            onNextStepButtonClick={onNextStepButtonClick}
+            childrenNb={childrenNb}
+            changeChildrenNb={changeChildrenNb}
+            rootContainerProps={rootContainerProps}
+            setRootContainerValue={setRootContainerValue}
+            isRowDirection={isRowDirection}
+            childrenContentMap={childrenContentMap}
+            setChildContent={setChildContent}
+            childrenList={childrenList}
+            childrenPropsMap={childrenPropsMap}
+            setChildProp={setChildProp}
+            getChildFlexProp={getChildFlexProp}
+            getChildProperties={getChildProperties}
+            childrenMargin={childrenMargin}
+            setChildrenMarginValue={setChildrenMarginValue}
+            onDoneButtonClick={onDoneButtonClick}
+            codeString={codeString}
+            initTuto={initTuto}
+            setExamplesActiveKey={setExamplesActiveKey}
+          />
+        </Suspense>
+      </ToolContainer>
     </MainContainer>
   );
 };

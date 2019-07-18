@@ -3,7 +3,7 @@ import Card from 'antd/lib/card';
 import Icon from 'antd/lib/icon';
 import Tabs from 'antd/lib/tabs';
 import React from 'react';
-import { Copyright, ToolContainer } from './components';
+import { Copyright } from './components';
 import Step1 from './shaperSteps/Step1';
 import Step2 from './shaperSteps/Step2';
 import Step3 from './shaperSteps/Step3';
@@ -42,20 +42,22 @@ const LayoutToolbox = ({
   initTuto,
   setExamplesActiveKey,
 }) => (
-  <ToolContainer>
-    <Card title={
-      <div
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-      }}
+  <>
+    <Card
+      title={
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <span>
+            <Icon type="layout" theme="filled" /> Layout Toolbox
+          </span>
+        </div>
+      }
     >
-      <span>
-        <Icon type="layout" theme="filled" /> Layout Toolbox
-      </span>
-    </div>
-    }>
       <Tabs
         type="card"
         activeKey={layoutToolActiveKey}
@@ -158,7 +160,7 @@ const LayoutToolbox = ({
         </a>
       </span>
     </Copyright>
-  </ToolContainer>
+  </>
 );
 
 export default LayoutToolbox;
