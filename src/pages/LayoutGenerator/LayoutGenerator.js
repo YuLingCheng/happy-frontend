@@ -1,51 +1,57 @@
-import _range from 'lodash/range';
-import React, { useState } from 'react';
-import ReactGA from 'react-ga';
-import Button from 'antd/lib/button';
-import Icon from 'antd/lib/icon';
-import notification from 'antd/lib/notification';
+import _range from "lodash/range";
+import React, { useState } from "react";
+import ReactGA from "react-ga";
+import Button from "antd/lib/button";
+import Icon from "antd/lib/icon";
+import notification from "antd/lib/notification";
 import {
   AnimatedButton,
   Header,
   Intro,
   MainContent,
   MainContainer,
-  PreviewContainer,
-} from './components/components';
+  PreviewContainer
+} from "./components/components";
 
-import LayoutToolbox from './components/LayoutToolbox';
-import Sandbox from './components/Sandbox';
-import getTutoMessageMap from './components/tutorialMessages';
-import logo from '../../assets/images/happyfrontend-logo.png';
-import exportCode from '../../services/codeGenerator';
-import { addOrRemoveChild, initialChildProps } from '../../services/childrenFactory';
-import { colorUsage } from '../../stylesheet';
+import LayoutToolbox from "./components/LayoutToolbox";
+import Sandbox from "./components/Sandbox";
+import getTutoMessageMap from "./components/tutorialMessages";
+import logo from "../../assets/images/happyfrontend-logo.png";
+import exportCode from "../../services/codeGenerator";
+import {
+  addOrRemoveChild,
+  initialChildProps
+} from "../../services/childrenFactory";
+import { colorUsage } from "../../stylesheet";
 
 const {
   childBaseColor,
   rootContainerBg,
   highlightContainerColor,
-  highlightChildColor,
+  highlightChildColor
 } = colorUsage;
 
 // The LayoutGenerator, where all the logic is
 const LayoutGenerator = () => {
   // initialize the root container layer
   const initialRootContainerProps = {
-    display: 'flex',
-    flexDirection: 'row',
-    padding: '0',
-    justifyContent: 'flex-start',
-    alignItems: 'stretch',
-    flexWrap: 'nowrap',
+    display: "flex",
+    flexDirection: "row",
+    padding: "0",
+    justifyContent: "flex-start",
+    alignItems: "stretch",
+    flexWrap: "nowrap"
   };
-  const [rootContainerProps, setRootContainerProps] = useState(initialRootContainerProps);
-  const setRootContainerValue = prop => ({ target }) => setRootContainerProps({
-    ...rootContainerProps,
-    [prop]: target.value,
-  });
+  const [rootContainerProps, setRootContainerProps] = useState(
+    initialRootContainerProps
+  );
+  const setRootContainerValue = prop => ({ target }) =>
+    setRootContainerProps({
+      ...rootContainerProps,
+      [prop]: target.value
+    });
 
-  const isRowDirection = rootContainerProps.flexDirection === 'row';
+  const isRowDirection = rootContainerProps.flexDirection === "row";
 
   // initialize the children layers
   const [childrenNb, setChildrenNb] = useState(0);
@@ -53,39 +59,48 @@ const LayoutGenerator = () => {
 
   const initialChildPropsMap = { 1: initialChildProps };
   const [childrenPropsMap, setChildPropsMap] = useState(initialChildPropsMap);
-  const setChildProp = id => prop => ({ target }) => setChildPropsMap(prev => ({
-    ...prev,
-    [id]: {
-      ...prev[id],
-      [prop]: target.value,
-    },
-  }));
+  const setChildProp = id => prop => ({ target }) =>
+    setChildPropsMap(prev => ({
+      ...prev,
+      [id]: {
+        ...prev[id],
+        [prop]: target.value
+      }
+    }));
 
-  const initialChildContentMap = { 1: 'Child 1' };
-  const [childrenContentMap, setChildContentMap] = useState(initialChildContentMap);
-  const setChildContent = id => ({ target }) => setChildContentMap(prev => ({
-    ...prev,
-    [id]: target.value,
-  }));
+  const initialChildContentMap = { 1: "Child 1" };
+  const [childrenContentMap, setChildContentMap] = useState(
+    initialChildContentMap
+  );
+  const setChildContent = id => ({ target }) =>
+    setChildContentMap(prev => ({
+      ...prev,
+      [id]: target.value
+    }));
   const changeChildrenNb = addOrRemoveChild(
     setChildrenNb,
     setChildPropsMap,
-    setChildContentMap,
+    setChildContentMap
   );
 
   // Initialize the margin between children
-  const [childrenMargin, setChildrenMargin] = useState('0');
-  const setChildrenMarginValue = ({ target }) => setChildrenMargin(target.value);
+  const [childrenMargin, setChildrenMargin] = useState("0");
+  const setChildrenMarginValue = ({ target }) =>
+    setChildrenMargin(target.value);
   const marginInfo = { isRowDirection, childrenMargin };
 
-  const getChildProperties = id => ({ ...initialChildProps, ...childrenPropsMap[id] });
-  const getChildFlexProp = childProperties => `${childProperties.flexGrow} ${childProperties.flexShrink} ${childProperties.flexBasis}`;
+  const getChildProperties = id => ({
+    ...initialChildProps,
+    ...childrenPropsMap[id]
+  });
+  const getChildFlexProp = childProperties =>
+    `${childProperties.flexGrow} ${childProperties.flexShrink} ${childProperties.flexBasis}`;
 
   // Logic to compute the css code
-  const [codeString, setCodeString] = useState('');
+  const [codeString, setCodeString] = useState("");
 
   // LayoutTabs Navigation
-  const [layoutToolActiveKey, setLayoutToolActiveKey] = useState('1');
+  const [layoutToolActiveKey, setLayoutToolActiveKey] = useState("1");
 
   // ShaperTool Navigation
   const [shaperActiveKey, setShaperActiveKey] = useState(1);
@@ -96,7 +111,7 @@ const LayoutGenerator = () => {
   const highlightExampleBlocks = tutoStep !== null;
 
   // Examples Navigation
-  const [examplesActiveKey, setExamplesActiveKey] = useState('1');
+  const [examplesActiveKey, setExamplesActiveKey] = useState("1");
 
   // AnimateRootContainer
   const [animateElements, setAnimateElements] = useState(true);
@@ -112,9 +127,9 @@ const LayoutGenerator = () => {
     setChildPropsMap(initialChildPropsMap);
     setChildContentMap(initialChildContentMap);
     setChildrenNb(0);
-    setChildrenMargin('0');
+    setChildrenMargin("0");
     setShaperActiveKey(1);
-    setLayoutToolActiveKey('1');
+    setLayoutToolActiveKey("1");
     setAnimateElements(true);
     setAnimate1stNextButton(false);
   };
@@ -124,32 +139,32 @@ const LayoutGenerator = () => {
     childBaseColor,
     rootContainerBg,
     highlightContainerColor,
-    highlightChildColor,
+    highlightChildColor
   );
   const stopTuto = () => {
     ReactGA.event({
-      category: 'LayoutGenerator',
-      action: 'Stop Tuto',
+      category: "LayoutGenerator",
+      action: "Stop Tuto"
     });
     setDisplayBlocks(true);
     setTutoStep(null);
   };
   const defaultNotificationOptions = {
     duration: 0,
-    key: 'tuto',
+    key: "tuto",
     onClose: stopTuto,
-    style: { width: 650, backgroundColor: 'rgba(255, 255, 255, 0.95)' },
+    style: { width: 650, backgroundColor: "rgba(255, 255, 255, 0.95)" }
   };
   notification.config({
-    placement: 'bottomLeft',
-    bottom: 10,
+    placement: "bottomLeft",
+    bottom: 10
   });
   const updateNotification = (step, showNextButton = false) => {
     const tutoMessage = tutoMessageMap[step];
     ReactGA.event({
-      category: 'LayoutGenerator',
-      action: 'Move Tuto step',
-      value: step,
+      category: "LayoutGenerator",
+      action: "Move Tuto step",
+      value: step
     });
     if (!tutoMessage) {
       notification.success({
@@ -165,7 +180,7 @@ const LayoutGenerator = () => {
           </Button>
         ),
         message: tutoMessageMap.finish.message,
-        description: tutoMessageMap.finish.description,
+        description: tutoMessageMap.finish.description
       });
       return;
     }
@@ -173,7 +188,9 @@ const LayoutGenerator = () => {
       ...defaultNotificationOptions,
       message: tutoMessage.message,
       description: tutoMessage.description,
-      btn: showNextButton && <Button onClick={() => updateNotification(step + 1)}>Next</Button>,
+      btn: showNextButton && (
+        <Button onClick={() => updateNotification(step + 1)}>Next</Button>
+      )
     });
   };
   const onNextStepButtonClick = () => {
@@ -186,7 +203,7 @@ const LayoutGenerator = () => {
     setShaperActiveKey(prevKey => prevKey + 1);
     setAnimate1stNextButton(false);
   };
-  const onStepClick = (key) => {
+  const onStepClick = key => {
     if (highlightExampleBlocks) {
       setDisplayBlocks(true);
       setTutoStep(() => {
@@ -214,23 +231,24 @@ const LayoutGenerator = () => {
       childrenList,
       getChildProperties,
       getChildFlexProp,
-      initialChildProps,
+      initialChildProps
     );
-    setLayoutToolActiveKey('2');
+    setLayoutToolActiveKey("2");
     ReactGA.event({
-      category: 'LayoutGenerator',
-      action: 'Done button click',
+      category: "LayoutGenerator",
+      action: "Done button click"
     });
   };
   const initTuto = () => {
     ReactGA.event({
-      category: 'LayoutGenerator',
-      action: 'Init Tuto',
+      category: "LayoutGenerator",
+      action: "Init Tuto"
     });
     setDisplayBlocks(false);
     setAnimateElements(false);
     setAnimate1stNextButton(false);
-    setExamplesActiveKey('1');
+    setExamplesActiveKey("1");
+    resetLayout();
     const btn = (
       <Button
         onClick={() => {
@@ -243,22 +261,22 @@ const LayoutGenerator = () => {
       </Button>
     );
     if (tutoStep === null) {
-      setLayoutToolActiveKey('1');
+      setLayoutToolActiveKey("1");
       setShaperActiveKey(1);
       notification.info({
         ...defaultNotificationOptions,
         btn,
         message: tutoMessageMap.start.message,
-        description: tutoMessageMap.start.description,
+        description: tutoMessageMap.start.description
       });
     }
     setTutoStep(0);
   };
 
   // Layout Toolbox tabs
-  const manageTabs = (key) => {
+  const manageTabs = key => {
     setAnimate1stNextButton(false);
-    if (key === '2') {
+    if (key === "2") {
       if (highlightExampleBlocks) {
         setDisplayBlocks(true);
         setTutoStep(() => {
@@ -267,8 +285,8 @@ const LayoutGenerator = () => {
         });
       }
       ReactGA.event({
-        category: 'LayoutGenerator',
-        action: 'Display code',
+        category: "LayoutGenerator",
+        action: "Display code"
       });
       exportCode(
         setCodeString,
@@ -279,10 +297,10 @@ const LayoutGenerator = () => {
         childrenList,
         getChildProperties,
         getChildFlexProp,
-        initialChildProps,
+        initialChildProps
       );
     }
-    if (key === '1') {
+    if (key === "1") {
       if (highlightExampleBlocks) {
         setDisplayBlocks(true);
         setTutoStep(() => {
@@ -311,8 +329,9 @@ const LayoutGenerator = () => {
           </Header>
           <Intro>
             <p>
-              Learn how to integrate your mockup's layout by using the panel on the right. Follow
-              the 6 steps! Become at ease with size, padding, margin and flex properties.
+              Learn how to integrate your mockup's layout by using the panel on
+              the right. Follow the 6 steps! Become at ease with size, padding,
+              margin and flex properties.
               <br />
               Train on the examples below or upload your own mockup.
             </p>
