@@ -44,8 +44,13 @@
     "webpack-bundle-analyzer": "^3.3.2"
   },
   "resolutions": {
-    "handlebars": "^4.0.14",
+    "braces": "^2.3.1",
+    "eslint-utils": "^1.4.1",
+    "handlebars": "^4.3.0",
     "js-yaml": "^3.13.1",
-    "lodash.template": "^4.5.0"
+    "lodash.template": "^4.5.0",
+    "mem": "^4.0.0",
+    "serialize-javascript": "^2.1.1",
+    "webpack-dev-server": "^3.1.11"
   }
 }
