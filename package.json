@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "antd": "3.16.1",
-    "lodash": "^4.17.13",
+    "lodash": "^4.17.19",
     "react": "^16.7.0-alpha.2",
     "react-cookie-consent": "^3.0.0",
     "react-copy-to-clipboard": "^5.0.1",
