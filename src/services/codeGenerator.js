@@ -29,9 +29,7 @@ const exportCode = (
 }
 ${
   marginInfo.childrenMargin !== '0'
-    ? `.container > :not(:last-child) {
-  margin-${isRowDirection ? 'right' : 'bottom'}: ${marginInfo.childrenMargin}; // Adapt
-}`
+    ? `gap: ${marginInfo.childrenMargin}; // Adapt`
     : ''
 }
 ${childrenList
