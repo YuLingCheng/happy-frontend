@@ -18,7 +18,7 @@ const Step6 = ({
       <Row gutter={8}>
         <Col span={14}>
           <Input
-            addonBefore={`margin-${isRowDirection ? 'right' : 'bottom'}:`}
+            addonBefore={`gap:`}
             size="small"
             value={childrenMargin}
             onChange={setChildrenMarginValue}
