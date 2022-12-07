@@ -3,7 +3,7 @@
   "name": "Happy Frontend",
   "alias": ["happyfrontend"],
   "regions": ["bru1"],
-  "builds": [{ "src": "package.json", "use": "@now/static-build" }],
+  "builds": [{ "src": "package.json", "use": "@vercel/static" }],
   "routes": [
     { "src": "^/static/(.*)", "dest": "/static/$1" },
     { "src": "^/favicon.png", "dest": "/favicon.ico" },
